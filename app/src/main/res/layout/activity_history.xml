@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".History">
+
+    <Button
+        android:id="@+id/history_recived_button"
+        android:layout_width="158dp"
+        android:layout_height="48dp"
+        android:text="Recived"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/history_purchased_button"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:text="Purchased"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/history_picture_imageView"
+        android:layout_width="89dp"
+        android:layout_height="91dp"
+        app:srcCompat="@drawable/download"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <TextView
+        android:id="@+id/history_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fatimah"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="87dp" />
+
+    <TextView
+        android:id="@+id/history_ID_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID : 123342"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="105dp" />
+
+    <TextView
+        android:id="@+id/history_item_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Range Rover"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="123dp" />
+
+</android.support.constraint.ConstraintLayout>

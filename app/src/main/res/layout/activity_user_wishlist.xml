@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_wishlist">
+
+    <TextView
+        android:id="@+id/userwWshlist_public_textview"
+        android:layout_width="85dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="26dp"
+        android:text="Public"
+        android:textSize="30sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="374dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/userwWshlist_public_textview" />
+
+    <ImageView
+        android:id="@+id/userwishlist_add_button"
+        android:layout_width="42dp"
+        android:layout_height="46dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/_dynamic"
+        app:srcCompat="@drawable/add" />
+</RelativeLayout>

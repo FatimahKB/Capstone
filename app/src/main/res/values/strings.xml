@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MakeAWish</string>
+    <string name="title_activity_create_private_list">createPrivateList</string>
+</resources>

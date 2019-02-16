@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ToDo">
+
+
+    <TextView
+        android:id="@+id/to_do_upcomingEvents_textView"
+        android:layout_width="274dp"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:text="UPCOMING EVENTS"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <TextView
+        android:id="@+id/to_do_FriendsRequest_textView"
+        android:layout_width="298dp"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="172dp"
+        android:text="Friends Request"
+        android:textSize="31sp"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="263dp" />
+
+    <ImageView
+        android:id="@+id/to_do_picture_imageView"
+        android:layout_width="94dp"
+        android:layout_height="156dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="66dp"
+        app:srcCompat="@drawable/download" />
+
+    <TextView
+        android:id="@+id/to_do_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="98dp"
+        android:text="Fatimah" />
+
+    <TextView
+        android:id="@+id/to_do_ID_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/to_do_name_textView"
+        android:layout_marginTop="142dp"
+        android:text="ID : 101102" />
+
+    <TextView
+        android:id="@+id/to_do_item_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/to_do_name_textView"
+        android:layout_marginTop="173dp"
+        android:text="Range Rover" />
+
+    <Button
+        android:id="@+id/to_do_buy_button"
+        android:layout_width="72dp"
+        android:layout_height="38dp"
+        android:layout_alignBaseline="@+id/to_do_name_textView"
+        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
+        android:text="buy" />
+
+    <Button
+        android:id="@+id/to_do_cancel_button"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/to_do_ID_textView"
+        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
+        android:text="Cancel" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="86dp"
+        android:layout_height="137dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        app:srcCompat="@drawable/images" />
+
+    <TextView
+        android:id="@+id/to_do_request_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/to_do_request_id_textView"
+        android:layout_alignTop="@+id/to_do_accept_button"
+        android:text="Hanouf" />
+
+    <TextView
+        android:id="@+id/to_do_request_id_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/to_do_accept_button"
+        android:layout_alignEnd="@+id/to_do_name_textView"
+        android:text="ID:123442" />
+
+    <Button
+        android:id="@+id/to_do_accept_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/to_do_decline_button"
+        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
+        android:text="Accept" />
+
+    <Button
+        android:id="@+id/to_do_decline_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="11dp"
+        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
+        android:text="decline" />
+
+
+</RelativeLayout>

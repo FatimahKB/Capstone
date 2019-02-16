@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "64848041570",
+    "firebase_url": "https://makeawish-3b12e.firebaseio.com",
+    "project_id": "makeawish-3b12e",
+    "storage_bucket": "makeawish-3b12e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64848041570:android:7b9ab2801c9b27bc",
+        "android_client_info": {
+          "package_name": "com.example.fatim.makeawish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64848041570-la0mdv0dvl7vjpf007r0rcode6jnioaf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "ee72873b311d1e1cfbccd31d028b248a70a289b2"
+          }
+        },
+        {
+          "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT86VRbQsQyCN4_ywMYpf3iQPYZWs_C6s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
