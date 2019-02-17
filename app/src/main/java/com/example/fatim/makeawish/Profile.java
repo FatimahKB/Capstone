@@ -17,4 +17,8 @@ public class Profile extends AppCompatActivity {
     public void bye(){
         int y = x+5;
     }
+    public void adios(){
+        int y = x+5;
+    }
+
 }
