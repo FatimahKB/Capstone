@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "64848041570-l49f8l98leqcb27bnsdfcd39ebeas1fi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "aa9cc6c62bfc73f5d1f082e7ae61e8c154d1c6c8"
+          }
+        },
+        {
           "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
           "client_type": 3
         }
