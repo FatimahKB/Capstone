@@ -20,5 +20,6 @@ public class Profile extends AppCompatActivity {
     public void adios(){
         int y = x+5;
     }
+    public void hanoof(){}
 
 }
