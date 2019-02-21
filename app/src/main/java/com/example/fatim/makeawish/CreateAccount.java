@@ -34,7 +34,6 @@ public class CreateAccount extends AppCompatActivity {
         create_control = (Button)findViewById(R.id.create_account_create_button);
         firebaseAuth = FirebaseAuth.getInstance();
 
-
         create_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,9 +69,8 @@ public class CreateAccount extends AppCompatActivity {
                 return true;
             else{
                 Toast.makeText(this, "Password and confirm password do not match", Toast.LENGTH_SHORT).show();
-                return false;}
-
-
+                return false;
+            }
         }
     }
     }
