@@ -23,5 +23,9 @@ public class Profile extends AppCompatActivity {
     public void HiHanoof(){
         int y = x+5;
     }
+    public void ByeHanoof(){
+        int y = x+5;
+    }
+
 
 }
