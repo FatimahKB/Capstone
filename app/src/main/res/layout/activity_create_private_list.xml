@@ -42,6 +42,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="174dp"
-        android:text="Date of Birth" />
+        android:text="Expiry Date" />
 
 </RelativeLayout>
