@@ -11,29 +11,36 @@
         android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
+
+        android:layout_marginLeft="145dp"
         android:text="Private Wishlists"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="151dp"
         tools:layout_editor_absoluteY="50dp" />
 
     <GridView
+        android:id="@+id/gv"
         android:layout_width="338dp"
-        android:layout_height="181dp"
 
+        android:layout_height="181dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="132dp"
-        />
+        android:layout_marginTop="132dp" />
 
-    <ImageView
-        android:id="@+id/privateWishlists_add_button"
-        android:layout_width="56dp"
-        android:layout_height="43dp"
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="257dp"
+        android:layout_marginBottom="178dp"
         android:layout_marginStart="49dp"
-        app:srcCompat="@drawable/add" />
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/add"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="49dp" />
 </RelativeLayout>

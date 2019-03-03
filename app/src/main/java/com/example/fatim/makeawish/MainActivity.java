@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn_login_login_button =(Button) findViewById(R.id.login_login_button);
+        Button btn_login_create_new_account_button =(Button) findViewById(R.id.login_create_new_account_button);
+
         //Initialize controls
         emailControl=(EditText)findViewById(R.id.login_email_editText);
         passwordControl=(EditText)findViewById(R.id.login_password_editText);
@@ -68,6 +71,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_login_login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//NOTE: after validation
+                startActivity(new Intent(MainActivity.this,Profile.class));
+
+            }
+        });
+
+        btn_login_create_new_account_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,CreateAccount.class));
+
+            }
+        });
     }
 
     public boolean validate(){

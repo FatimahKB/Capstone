@@ -1,11 +1,13 @@
 package com.example.fatim.makeawish;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,6 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class CreateAccount extends AppCompatActivity {
     EditText username_control;
@@ -25,6 +30,23 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        final Calendar c=Calendar.getInstance();
+        DateFormat expDate= DateFormat.getDateInstance();
+        final DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            }
+        };
+        Button btnDOB = (Button) findViewById(R.id.create_account_dob_button);
+        btnDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(CreateAccount.this,d, c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         //Intialize controls
         username_control = (EditText) findViewById(R.id.create_account_name_editText);
@@ -32,6 +54,7 @@ public class CreateAccount extends AppCompatActivity {
         password_control = (EditText) findViewById(R.id.create_account_password_editText);
         confirmPassword_control = (EditText) findViewById(R.id.create_account_confirm_password_editText);
         create_control = (Button)findViewById(R.id.create_account_create_button);
+        Button btn_create_account_create_button =(Button) findViewById(R.id.create_account_create_button);
         firebaseAuth = FirebaseAuth.getInstance();
 
         create_control.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +78,13 @@ public class CreateAccount extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        btn_create_account_create_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateAccount.this,MainActivity.class));
             }
         });
     }

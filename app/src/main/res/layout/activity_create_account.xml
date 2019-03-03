@@ -15,7 +15,8 @@
         android:layout_marginTop="142dp"
         android:ems="10"
         android:hint="Name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/create_account_email_editText"
@@ -26,7 +27,8 @@
         android:layout_marginTop="201dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/create_account_confirm_password_editText"
@@ -37,7 +39,8 @@
         android:layout_marginBottom="201dp"
         android:ems="10"
         android:hint="Confirm Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/create_account_password_editText"
@@ -47,7 +50,8 @@
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/textView2"
@@ -75,5 +79,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="116dp"
-        android:text="Enter D.O.B" />
+        android:text="Enter Date of Birth"
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>

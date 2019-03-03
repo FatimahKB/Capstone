@@ -1,31 +1,24 @@
 package com.example.fatim.makeawish;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class Profile extends AppCompatActivity {
-    int x =5+2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-    }
-    public void hello(){
-        int y = x+5;
-    }
-    public void bye(){
-        int y = x+5;
-    }
-    public void adios(){
-        int y = x+5;
-    }
-    public void HiHanoof(){
-        int y = x+5;
-    }
-    public void Byhanoof(){
-        int y = x+5;
-    }
 
-
+        Button btnPrivate = findViewById(R.id.profile_private_button);
+        btnPrivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, createPrivateList.class));
+            }
+        });
+    }
 }

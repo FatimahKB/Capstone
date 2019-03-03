@@ -27,6 +27,7 @@
             android:name=".createPrivateList"
             android:label="@string/title_activity_create_private_list" />
         <activity android:name=".sharingLink" />
+        <activity android:name=".Search"></activity>
     </application>
 
 </manifest>

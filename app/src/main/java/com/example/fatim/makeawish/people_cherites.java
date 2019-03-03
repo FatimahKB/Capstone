@@ -1,7 +1,10 @@
 package com.example.fatim.makeawish;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class people_cherites extends AppCompatActivity {
 
@@ -9,6 +12,33 @@ public class people_cherites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_cherites);
+        Button btn_people_cherites_people_button =(Button) findViewById(R.id.people_cherites_people_button);
+        Button btn_people_cherites_cherities_button =(Button) findViewById(R.id.people_cherites_cherities_button);
+        Button btn_people_cherites_items_button =(Button) findViewById(R.id.people_cherites_items_button);
+
+        btn_people_cherites_people_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(people_cherites.this,people_cherites.class));
+
+            }
+        });
+
+        btn_people_cherites_cherities_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(people_cherites.this,people_cherites.class));
+
+            }
+        });
+
+        btn_people_cherites_items_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(people_cherites.this,people_cherites.class));
+
+            }
+        });
 
     }
 }
