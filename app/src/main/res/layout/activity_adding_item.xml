@@ -73,7 +73,7 @@
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/addingItem_quality_editText"
+        android:id="@+id/addingItem_quantity_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -15,9 +15,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateAccount extends AppCompatActivity {
     EditText username_control;
@@ -48,14 +51,15 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
 
+
         //Intialize controls
         username_control = (EditText) findViewById(R.id.create_account_name_editText);
         email_control = (EditText) findViewById(R.id.create_account_email_editText);
         password_control = (EditText) findViewById(R.id.create_account_password_editText);
         confirmPassword_control = (EditText) findViewById(R.id.create_account_confirm_password_editText);
         create_control = (Button)findViewById(R.id.create_account_create_button);
-        Button btn_create_account_create_button =(Button) findViewById(R.id.create_account_create_button);
         firebaseAuth = FirebaseAuth.getInstance();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         create_control.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +67,18 @@ public class CreateAccount extends AppCompatActivity {
                 // add to database
                 if (valid()) {
                     final String email = email_control.getText().toString().trim();
+                    final String [] username= email.split("@");
                     final String password = password_control.getText().toString().trim();
+                    final Date DOB = new Date (c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
 
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //add to database
+                                User user = new User (email,password,DOB);
+                                mDatabase.child("Users").child(username[0]).setValue(user);
+
                                 Toast.makeText(CreateAccount.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(CreateAccount.this, MainActivity.class));
                             } else {
@@ -78,13 +87,6 @@ public class CreateAccount extends AppCompatActivity {
                         }
                     });
                 }
-            }
-        });
-
-        btn_create_account_create_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateAccount.this,MainActivity.class));
             }
         });
     }
