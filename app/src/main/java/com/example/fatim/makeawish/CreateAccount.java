@@ -76,6 +76,7 @@ public class CreateAccount extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //add to database
+                                int x =0;
                                 User user = new User (email,password,DOB);
                                 mDatabase.child("Users").child(username[0]).setValue(user);
 
