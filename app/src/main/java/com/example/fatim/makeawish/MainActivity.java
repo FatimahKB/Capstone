@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,9 +26,14 @@ public class MainActivity extends AppCompatActivity {
     Button log_inControl;
     Button create_accountControl;
     FirebaseAuth firebaseAuth;
+    private StorageReference mStorageRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         Button btn_login_login_button =(Button) findViewById(R.id.login_login_button);
@@ -75,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {//NOTE: after validation
                 startActivity(new Intent(MainActivity.this,Profile.class));
+              //  startActivity(new Intent(MainActivity.this,UploadImage.class));
 
             }
         });
@@ -96,5 +104,23 @@ public class MainActivity extends AppCompatActivity {
         else{
             return true;
         }
-    }
-}
+    }}
+//}
+//    Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+//    StorageReference riversRef = storageRef.child("images/rivers.jpg");
+//
+//riversRef.putFile(file)
+//        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//@Override
+//public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//        // Get a URL to the uploaded content
+//        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//        }
+//        })
+//        .addOnFailureListener(new OnFailureListener() {
+//@Override
+//public void onFailure(@NonNull Exception exception) {
+//        // Handle unsuccessful uploads
+//        // ...
+//        }
+//        });
