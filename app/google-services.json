@@ -23,6 +23,30 @@
           }
         },
         {
+          "client_id": "64848041570-l49f8l98leqcb27bnsdfcd39ebeas1fi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "aa9cc6c62bfc73f5d1f082e7ae61e8c154d1c6c8"
+          }
+        },
+        {
+          "client_id": "64848041570-9lf2fbeg88p25ck5ovpce17jpqrsrp1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "b8a2c8d292796bb7a71a49eb6153cc9407c8f622"
+          }
+        },
+        {
+          "client_id": "64848041570-84gvo08hrftst58rv524lqo4nn9jdhpq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "d3041df729d49b31a7cde1a4bd63d700744e8539"
+          }
+        },
+        {
           "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
           "client_type": 3
         }
