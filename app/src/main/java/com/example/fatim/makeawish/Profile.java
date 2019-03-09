@@ -13,6 +13,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         String blah= "Hi Haifa";
+        String l= "bye";
 
         Button btnPrivate = findViewById(R.id.profile_private_button);
         btnPrivate.setOnClickListener(new View.OnClickListener() {
