@@ -4,15 +4,20 @@ import java.util.Date;
 
 public class User {
 
-    String username;
-    String email;
-    String password;
-    Date DOB;
+    private String username;
+    private String email;
+    private String password;
+    private String DOB;
 
     public User(){}
 
     public User(String username){
         this.username=username;
+    }
+    public User(String username,String password, String DOB){
+        this.username=username;
+        this.password=password;
+        this.DOB=DOB;
     }
 
     public String getUsername() {
@@ -38,11 +43,11 @@ public class User {
     public String getEmail() {
         return email;
     }
-    public void setDOB(Date DOB) {
+    public void setDOB(String DOB) {
         this.DOB = DOB;
     }
 
-    public Date getDOB() {
+    public String getDOB() {
         return DOB;
     }
 }
