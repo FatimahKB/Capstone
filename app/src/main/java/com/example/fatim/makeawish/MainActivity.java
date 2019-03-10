@@ -2,9 +2,11 @@ package com.example.fatim.makeawish;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -45,22 +48,30 @@ public class MainActivity extends AppCompatActivity {
         log_inControl=(Button)findViewById(R.id.login_login_button);
         create_accountControl=(Button)findViewById(R.id.login_create_new_account_button);
         firebaseAuth = FirebaseAuth.getInstance();
-
+        final SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
 
 
         log_inControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validate()) {
-                    final String email = emailControl.getText().toString().trim();
-                    final String password_ = passwordControl.getText().toString().trim();
-
+                     final String email = emailControl.getText().toString().trim();
+                     String password_ = passwordControl.getText().toString().trim();
+                    Log.d("hi",email);
                     firebaseAuth.signInWithEmailAndPassword(email, password_).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                String username [] =email.split("@");
                                 Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences.Editor e =sharedPreferences.edit();
+
+                                e.putString("username",username[0]);
+                                e.commit();
                                 startActivity(new Intent(MainActivity.this,Profile.class));
+
                             }
                             else{
                                 Toast.makeText(MainActivity.this,"Login failed", Toast.LENGTH_SHORT).show();
@@ -78,14 +89,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_login_login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {//NOTE: after validation
-                startActivity(new Intent(MainActivity.this,Profile.class));
-              //  startActivity(new Intent(MainActivity.this,UploadImage.class));
-
-            }
-        });
+//        btn_login_login_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {//NOTE: after validation
+//                startActivity(new Intent(MainActivity.this,Profile.class));
+//              //  startActivity(new Intent(MainActivity.this,UploadImage.class));
+//
+//            }
+//        });
 
         btn_login_create_new_account_button.setOnClickListener(new View.OnClickListener() {
             @Override

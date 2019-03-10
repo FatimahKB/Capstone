@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MakeAWish</string>
     <string name="title_activity_create_private_list">createPrivateList</string>
+    <string-array name="listsname">
+        <item>t</item>
+        <item>m</item>
+        <item>y</item>
+        <item>r</item>
+        <item>t</item>
+        <item>w</item>
+    </string-array>
 </resources>

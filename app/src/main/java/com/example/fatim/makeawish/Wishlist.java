@@ -5,13 +5,17 @@ import java.util.Date;
 
 public class Wishlist {
 
-    String name;
-    ArrayList<Item> itemLlist = new ArrayList<Item>();
+     String name;
+     ArrayList<Item> itemlist = new ArrayList<Item>();
 
     public Wishlist(){
     }
 
-    public String getName() {
+    public Wishlist(String name, ArrayList<Item> itemlist) {
+        this.name=name;
+        this.itemlist=itemlist;
+    }
+        public String getName() {
         return name;
     }
 
@@ -20,22 +24,22 @@ public class Wishlist {
     }
 
     public ArrayList<Item> getItemLlist() {
-        return itemLlist;
+        return itemlist;
     }
 
     public void setItemLlist(ArrayList<Item> itemLlist) {
-        this.itemLlist = itemLlist;
+        this.itemlist = itemLlist;
     }
 
     public void addItem (Item item){
-        this.itemLlist.add(item);
+        this.itemlist.add(item);
     }
 
     public void removeItem(Item item){
-        this.itemLlist.remove(item);
+        this.itemlist.remove(item);
     }
 
     public int getSize(){
-        return this.itemLlist.size();
+        return this.itemlist.size();
     }
 }
