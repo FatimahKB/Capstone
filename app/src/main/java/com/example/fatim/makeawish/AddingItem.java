@@ -33,7 +33,7 @@ public class AddingItem extends AppCompatActivity {
     Button choose;
     Button btn_addingItem_add_button;
     Button btn_addingItem_search_button;
-
+Item item;
     public DatabaseReference mDatabase;
     String [] listsname;
     String username1;
@@ -42,6 +42,7 @@ public class AddingItem extends AppCompatActivity {
     ArrayList<String> lists = new ArrayList<>();
     ArrayList<String> finallists = new ArrayList<>();
     String nameList="";
+    long number=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +137,30 @@ public class AddingItem extends AppCompatActivity {
 
                     for ( int i = 0; i < finallists.size(); i++) {
                         nameList=finallists.get(i);
+                        if(nameList.equals("Public")){
+                            mDatabase.child("Users").child(username1).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Toast.makeText(AddingItem.this,"I'm here", Toast.LENGTH_SHORT).show();
+                                    number=dataSnapshot.getChildrenCount();
+                                   Log.d("ho",number+"");
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                    // ...
+                                }
+                            });
+                             item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
+                            mDatabase.child("Users").child(username1).child("Lists").child("Public").child("item"+number).setValue(item);
+
+                            continue;
+                            }
                         mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Item item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
-                                mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+dataSnapshot.getChildrenCount()).setValue(item);
+                                number=dataSnapshot.getChildrenCount();
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
@@ -149,9 +169,12 @@ public class AddingItem extends AppCompatActivity {
                                 // ...
                             }
                         });
+                         item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
+                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+number).setValue(item);
+                    }
                     }
                 }
-        }
+
         });
 
 
