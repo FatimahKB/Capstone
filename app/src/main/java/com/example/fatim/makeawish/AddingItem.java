@@ -153,7 +153,7 @@ Item item;
                                 }
                             });
                              item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
-                            mDatabase.child("Users").child(username1).child("Lists").child("Public").child("item"+number).setValue(item);
+                            mDatabase.child("Users").child(username1).child("Lists").child("Public").child("item"+(number+1)).setValue(item);
 
                             continue;
                             }
@@ -170,8 +170,11 @@ Item item;
                             }
                         });
                          item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
-                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+number).setValue(item);
+                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+(number+1)).setValue(item);
+                        Log.d("he",number+"");
+
                     }
+                    finallists.clear();
                     }
                 }
 
