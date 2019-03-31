@@ -18,7 +18,7 @@ public class PrivateWishlists extends AppCompatActivity {
         btn_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PrivateWishlists.this,AddingItem.class));
+                startActivity(new Intent(PrivateWishlists.this,createPrivateList.class));
 
             }
         });

@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class Wishlist {
 
-     String name;
-     ArrayList<Item> itemlist = new ArrayList<Item>();
+     private String name;
+     private ArrayList<Item> itemlist = new ArrayList<Item>();
 
     public Wishlist(){
     }

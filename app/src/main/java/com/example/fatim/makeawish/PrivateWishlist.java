@@ -5,8 +5,9 @@ import java.util.Date;
 
 public class PrivateWishlist extends Wishlist {
 
-    ArrayList<User> authorizedList = new ArrayList<User>();
-    Date expDate;
+    private ArrayList<User> authorizedList = new ArrayList<User>();
+    private Date expDate;
+    private String name;
 
     public PrivateWishlist(String name, Date exp){
         this.name=name;

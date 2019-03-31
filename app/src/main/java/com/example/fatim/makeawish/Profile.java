@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,6 +70,8 @@ public class Profile extends AppCompatActivity {
                     items_list.setAdapter(adapter1);
 
                 }
+                Toast.makeText(Profile.this, "bye"+all_items_list.size(), Toast.LENGTH_SHORT).show();
+
 
             }
             @Override
@@ -85,6 +88,13 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                     startActivity(new Intent(Profile.this,AddingItem.class));
 
+            }
+        });
+
+        private_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent (Profile.this, PrivateWishlists.class));
             }
         });
     }
