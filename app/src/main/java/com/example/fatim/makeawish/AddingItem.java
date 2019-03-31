@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddingItem extends AppCompatActivity {
     TextView text;
@@ -33,13 +34,18 @@ public class AddingItem extends AppCompatActivity {
     Button choose;
     Button btn_addingItem_add_button;
     Button btn_addingItem_search_button;
+    Item item;
     public DatabaseReference mDatabase;
-    long lastItemNumber;
     String [] listsname;
     String username1;
     boolean [] checkedLists;
     ArrayList<Integer> selectedLists= new ArrayList<>();
     ArrayList<String> lists = new ArrayList<>();
+    ArrayList<Long> listSizes = new ArrayList<>();
+    ArrayList<String> finallists = new ArrayList<>();
+    String nameList="";
+    long number;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,21 +62,39 @@ public class AddingItem extends AppCompatActivity {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String username [] =user.getEmail().split("@");
-        listsname=getResources().getStringArray(R.array.listsname);
+//      listsname=getResources().getStringArray(R.array.listsname);
+        final HashMap<String,Long> hMap = new HashMap<String, Long>();
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
          username1=sharedPreferences.getString("username","");
-        Toast.makeText(AddingItem.this,"bye", Toast.LENGTH_SHORT).show();
 
-
-        mDatabase.child("Users").child(username1).child("Private").addValueEventListener( new ValueEventListener() {
+        mDatabase.child("Users").child(username1).child("Lists").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 lists = new ArrayList<>();
-                for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    lists.add(n.child("name").getValue().toString()+"");
-                    Toast.makeText(AddingItem.this,n.child("name").getValue().toString(), Toast.LENGTH_SHORT).show();
-
+                for (DataSnapshot n : dataSnapshot.getChildren()){
+                    hMap.put(n.getKey(),n.getChildrenCount());
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        mDatabase.child("Users").child(username1).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                lists.add("Public");
+                Log.d("hello","insdie here");
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    lists.add(n.getKey());
+                    listSizes.add(n.getChildrenCount());
+                    hMap.put(n.getKey(),n.getChildrenCount());
+                }
+                listsname=new String[lists.size()];
+                listsname= lists.toArray(listsname);
+                checkedLists=new boolean [listsname.length];
             }
                 // Get Post object and use the values to update the UI
 //                Toast.makeText(AddingItem.this,"here "+(mDatabase.child("Users").child(username1).child("Private").child("Birthday")), Toast.LENGTH_SHORT).show();
@@ -78,7 +102,6 @@ public class AddingItem extends AppCompatActivity {
 ////                    Toast.makeText(AddingItem.this,"I'm here", Toast.LENGTH_SHORT).show();
 //                        lists.add(n.child("name").getValue().toString());
 //                    }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -88,12 +111,12 @@ public class AddingItem extends AppCompatActivity {
             }
         });
 
-        checkedLists=new boolean [listsname.length];
-                    Toast.makeText(AddingItem.this,"I'm here"+lists.size(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddingItem.this,"I'm here"+lists.size(), Toast.LENGTH_SHORT).show();
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder mBuilder=new AlertDialog.Builder(AddingItem.this);
                 mBuilder.setTitle("Wishlists");
 
@@ -113,41 +136,70 @@ public class AddingItem extends AppCompatActivity {
                 mBuilder.setPositiveButton("choose", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String item="";
                         for(int i=0;i<selectedLists.size();i++){
-                            item= item + listsname[selectedLists.get(i)];
+                            finallists.add(listsname[selectedLists.get(i)]);
                         }
                     }
                 });
                 AlertDialog mDialog= mBuilder.create();
                 mDialog.show();
+
             }
         });
 
+    //adding the item to database
+        btn_addingItem_add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(valid()) {
+                    for ( int i = 0; i < finallists.size(); i++) {
+                        nameList=finallists.get(i);
+                        if(nameList.equals("Public")){
+                            mDatabase.child("Users").child(username1).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    number=dataSnapshot.getChildrenCount();
+                                    Toast.makeText(AddingItem.this,"I'm here"+number, Toast.LENGTH_LONG).show();
+                                    Log.d("bbyee","heey there"+number+"");
+                                    mDatabase.child("Users").child(username1).child("Lists").child("Public").child("item" + +hMap.get("Public")).setValue(item);
 
-        if(valid()){
-            Item item=new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()),Double.parseDouble(price.getText().toString()));
-
-//            mDatabase.child("Users").child(username[0]).child("Private").addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    lastItemNumber=  dataSnapshot.getChildrenCount();
-////                    for (DataSnapshot snap: dataSnapshot.getChildren()) {
-////                        Log.e(snap.getKey(),snap.getChildrenCount() + "");
-////                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//            mDatabase.child("Users").child(username[0]).child("Private").child("item"+lastItemNumber).setValue(item);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                }
+                            });
+                             item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
 
 
-        }
 
+                            continue;
+                            }
+                        DatabaseReference d = mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList);
+                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot d) {
+                                 number+=d.getChildrenCount();
+                           //     Log.d("the",number+"");
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Getting Post failed, log a message
+                                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                // ...
+                            }
+                        });
+                         item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
+                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+hMap.get(nameList)).setValue(item);
+                     //   Log.d("he",number+" i");
 
+                    }
+                    finallists.clear();
+                    }
+                }
+
+        });
 
         btn_addingItem_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,24 +208,22 @@ public class AddingItem extends AppCompatActivity {
             }
         });
 
-        btn_addingItem_add_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //NOTE: navigate to public/private correctly
-                startActivity(new Intent(AddingItem.this,user_wishlist.class));
-
-            }
-        });
+//        btn_addingItem_add_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //NOTE: navigate to public/private correctly
+//                startActivity(new Intent(AddingItem.this,user_wishlist.class));
+//
+//            }
+//        });
     }
     public boolean valid() {
         if (name.getText().toString().isEmpty() || quantity.getText().toString().isEmpty() || price.getText().toString().isEmpty() ) {
-           // Toast.makeText(this, "Please fill all the required fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill all the required fields", Toast.LENGTH_SHORT).show();
             return false;
         }
         else{
             return true;
         }
     }
-
-
 }

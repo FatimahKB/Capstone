@@ -57,7 +57,7 @@ public class createPrivateList extends Activity {
                 user= FirebaseAuth.getInstance().getCurrentUser();
                 String username []=user.getEmail().split("@");
                 date=c.get(Calendar.YEAR)+"/"+ c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH);
-                mDatabase.child("Users").child(username[0]).child("Private").child(name.getText().toString().trim()).child("expiration").setValue(date);
+                mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(name.getText().toString().trim()).child("expiration").setValue(date);
                 Toast.makeText(createPrivateList.this, "List has been successfully created", Toast.LENGTH_LONG).show();
             }
         });
