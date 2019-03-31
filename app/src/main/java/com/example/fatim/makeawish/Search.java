@@ -53,10 +53,10 @@ public class Search extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                     String str = postSnapshot.toString();
-                    //String str = postSnapshot.child("username").toString();
-                    //String subString = str.substring(str.lastIndexOf("=") + 1);
-                    //String name = subString.substring(0, subString.indexOf("}"));
-                    all_users.add(str + "");//name
+                   // String str = postSnapshot.child("username").toString();
+                    String subString = str.substring(str.lastIndexOf("=") + 1);
+                    String name = subString.substring(0, subString.indexOf("}"));
+                    all_users.add(name + "");//name
                 }
             }
 
