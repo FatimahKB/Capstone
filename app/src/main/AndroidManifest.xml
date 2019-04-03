@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fatim.makeawish">
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +31,8 @@
             android:label="@string/title_activity_create_private_list" />
         <activity android:name=".sharingLink" />
         <activity android:name=".Search" />
-        <activity android:name=".UploadImage"></activity>
+        <activity android:name=".UploadImage" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>

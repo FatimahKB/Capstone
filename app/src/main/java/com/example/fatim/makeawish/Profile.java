@@ -3,9 +3,12 @@ package com.example.fatim.makeawish;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,7 +48,6 @@ public class Profile extends AppCompatActivity {
         public_list=(Button)findViewById(R.id.profile_public_button);
         add=(Button)findViewById(R.id.profile_add_button);
         v=(TextView) findViewById(R.id.textView4Test);
-        profile=(Button)findViewById(R.id.button2);
         //displaying the public list's items
         user= FirebaseAuth.getInstance().getCurrentUser();
         String username []=user.getEmail().split("@");
@@ -87,5 +89,33 @@ public class Profile extends AppCompatActivity {
 
             }
         });
+        //Navigation bar
+        BottomNavigationView bottom = findViewById(R.id.navigationView);
+
+        bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.navigation_history:
+                        startActivity(new Intent(Profile.this,History.class));break;
+                    case R.id.navigation_todo:
+                        startActivity(new Intent(Profile.this,ToDo.class));break;
+                    case R.id.navigation_profile:
+                        startActivity(new Intent(Profile.this,Profile.class));break;
+
+                    case R.id.navigation_search:
+                        startActivity(new Intent(Profile.this,Search.class));break;
+                    case R.id.navigation_settings:
+                        startActivity(new Intent(Profile.this,Settings.class));break;
+                    default:
+
+
+
+                }
+                return false;
+            }
+        });
+
     }
 }

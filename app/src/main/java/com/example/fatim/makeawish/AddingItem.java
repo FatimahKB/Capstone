@@ -134,7 +134,6 @@ Item item;
             @Override
             public void onClick(View v) {
                 if(valid()) {
-
                     for ( int i = 0; i < finallists.size(); i++) {
                         nameList=finallists.get(i);
                         if(nameList.equals("Public")){

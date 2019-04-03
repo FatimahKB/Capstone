@@ -7,18 +7,21 @@
     tools:context=".CreateAccount">
 
     <EditText
+        android:textCursorDrawable="@drawable/bluecursor"
+        android:backgroundTint="@color/blue"
         android:id="@+id/create_account_name_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="142dp"
         android:ems="10"
         android:hint="Name"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true" />
+        android:inputType="textPersonName" />
 
     <EditText
+        android:textCursorDrawable="@drawable/bluecursor"
         android:id="@+id/create_account_email_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +31,8 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:backgroundTint="@color/blue"/>
 
     <EditText
         android:id="@+id/create_account_confirm_password_editText"
@@ -40,9 +44,12 @@
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textCursorDrawable="@drawable/bluecursor"
+        android:backgroundTint="@color/blue"/>
 
     <EditText
+        android:textCursorDrawable="@drawable/bluecursor"
         android:id="@+id/create_account_password_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,9 +58,12 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:backgroundTint="@color/blue"/>
 
     <TextView
+        android:textCursorDrawable="@null"
+        android:textColor="@color/blue"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,15 +80,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="47dp"
-        android:text="create" />
+        android:background="@drawable/roundedbutton"
+        android:text="create"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed" />
 
     <Button
         android:id="@+id/create_account_dob_button"
-        android:layout_width="match_parent"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="116dp"
+        android:background="@drawable/roundedbutton"
         android:text="Enter Date of Birth"
-        android:layout_alignParentLeft="true" />
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 </RelativeLayout>
