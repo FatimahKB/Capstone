@@ -9,6 +9,10 @@ public class PrivateWishlist extends Wishlist {
     private Date expDate;
     private String name;
 
+    public PrivateWishlist(){
+
+    }
+
     public PrivateWishlist(String name, Date exp){
         this.name=name;
         this.expDate= exp;
@@ -29,4 +33,12 @@ public class PrivateWishlist extends Wishlist {
     public void setAuthorizedList(ArrayList<User> authorizedList) {
         this.authorizedList = authorizedList;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }
