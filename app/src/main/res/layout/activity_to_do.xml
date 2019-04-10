@@ -26,7 +26,7 @@
         android:layout_height="58dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/to_do_picture_imageView"
-        android:layout_marginBottom="172dp"
+        android:layout_marginBottom="198dp"
         android:text="FRIEND REQUESTS"
         android:textColor="@color/blue"
         android:textSize="31sp"
@@ -91,50 +91,6 @@
         android:text="Cancel"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="86dp"
-        android:layout_height="137dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/to_do_upcomingEvents_textView"
-        app:srcCompat="@drawable/images" />
-
-    <TextView
-        android:id="@+id/to_do_request_name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/to_do_accept_button"
-        android:layout_alignStart="@+id/to_do_name_textView"
-        android:text="Hanouf" />
-
-    <TextView
-        android:id="@+id/to_do_request_id_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/to_do_name_textView"
-        android:layout_alignTop="@+id/to_do_decline_button"
-        android:text="123442" />
-
-    <Button
-        android:id="@+id/to_do_accept_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageView4"
-        android:background="@drawable/roundedbutton"
-        android:text="Accept"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
-
-    <Button
-        android:id="@+id/to_do_decline_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="11dp"
-        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
-        android:background="@drawable/roundedbutton"
-        android:text="decline"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
@@ -142,13 +98,19 @@
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:background="#c7000000"
-        app:itemBackground="@android:color/transparent"
         app:itemIconTint="#FFFFFF"
         app:itemTextColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -157,26 +119,6 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/seperator" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/to_do_request_name_textView"
-        android:layout_toEndOf="@+id/to_do_picture_imageView"
-        android:text="Name:"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/to_do_request_id_textView"
-        android:layout_toEndOf="@+id/to_do_picture_imageView"
-        android:text="ID:"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView5"

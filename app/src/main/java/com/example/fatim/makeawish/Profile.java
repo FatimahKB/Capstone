@@ -35,27 +35,30 @@ public class Profile extends AppCompatActivity {
     Button private_list;
     Button public_list;
     Button profile;
+    Button friend;
     Button add;
-    TextView v;
-
+    TextView friendsNumberText;
+    TextView usernameText;
+    String friends;
+    int friendsNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         items_list= (ListView)findViewById(R.id.Profile_publicItems_ListView);
         private_list=(Button)findViewById(R.id.profile_private_button);
         public_list=(Button)findViewById(R.id.profile_public_button);
+        friend = (Button)findViewById(R.id.friend1);
         add=(Button)findViewById(R.id.profile_add_button);
-        v=(TextView) findViewById(R.id.textView4Test);
+        friendsNumberText=(TextView)findViewById(R.id.profile_friends_textView5);
+        usernameText=(TextView)findViewById(R.id.profile_username_textView);
         //displaying the public list's items
         user= FirebaseAuth.getInstance().getCurrentUser();
         String username []=user.getEmail().split("@");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-        String username1=sharedPreferences.getString("username","");
-        v.setText(username1);
+        usernameText.setText(username[0]);
 
         mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
             @Override
@@ -69,9 +72,7 @@ public class Profile extends AppCompatActivity {
                     all_items_list.add(item.getName());
                     ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(Profile.this, android.R.layout.simple_list_item_1,all_items_list));
                     items_list.setAdapter(adapter1);
-
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -81,11 +82,45 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friends=dataSnapshot.getValue(String.class);
+                for(int i=0;i<friends.length();i++){
+                    if(friends.charAt(i)== ','){
+                        friendsNumber++;
+                    }
+                }
+                friendsNumberText.setText(friendsNumber+1+" friends");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+        friendsNumberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this,displayFriends.class));
+            }
+        });
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     startActivity(new Intent(Profile.this,AddingItem.class));
+
+            }
+        });
+
+        friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this,FriendsWishList.class));
 
             }
         });
@@ -116,6 +151,7 @@ public class Profile extends AppCompatActivity {
                 return false;
             }
         });
+
 
     }
 }

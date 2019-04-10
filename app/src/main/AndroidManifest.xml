@@ -32,7 +32,15 @@
         <activity android:name=".sharingLink" />
         <activity android:name=".Search" />
         <activity android:name=".UploadImage" />
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Settings" />
+        <activity android:name=".displayFriends" />
+        <activity android:name=".item_view" />
+        <activity android:name=".Transaction" />
+        <activity android:name=".Buying" />
+        <activity android:name=".SearchResultDisplay" />
+        <activity android:name=".FriendsList" />
+        <activity android:name=".FriendsWishList" />
+        <activity android:name=".ItemView"></activity>
     </application>
 
 </manifest>

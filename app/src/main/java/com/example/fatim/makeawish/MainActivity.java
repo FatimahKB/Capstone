@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 if(validate()) {
                      final String email = emailControl.getText().toString().trim();
                      String password_ = passwordControl.getText().toString().trim();
-                    Log.d("hi",email);
                     firebaseAuth.signInWithEmailAndPassword(email, password_).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 e.putString("username",username[0]);
                                 e.commit();
-                                startActivity(new Intent(MainActivity.this,Profile.class));
+                                startActivity(new Intent(MainActivity.this,ToDo.class));
 
                             }
                             else{

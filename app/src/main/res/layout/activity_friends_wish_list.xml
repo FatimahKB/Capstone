@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FriendsWishList">
+    <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" tools:layout_editor_absoluteY="7dp" tools:layout_editor_absoluteX="156dp" app:srcCompat="@mipmap/ic_launcher_round" android:layout_marginStart="144dp" android:layout_alignParentTop="true" android:layout_alignParentStart="true" android:id="@+id/friends_wish_list_profile_imageview"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" tools:layout_editor_absoluteY="96dp" tools:layout_editor_absoluteX="157dp" android:id="@+id/friends_wish_list_name_textview" android:textStyle="bold|italic" android:textSize="18sp" android:textAllCaps="true" android:text="Hanoof" android:layout_marginBottom="-112dp" android:layout_alignStart="@+id/friends_wish_list_profile_imageview" android:layout_above="@+id/friends_wish_list_public_button"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" tools:layout_editor_absoluteY="130dp" tools:layout_editor_absoluteX="53dp" android:layout_marginStart="11dp" android:layout_alignParentTop="true" android:layout_alignParentStart="true" android:id="@+id/friends_wish_list_public_button" android:text="public" android:layout_marginTop="112dp"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" tools:layout_editor_absoluteY="130dp" tools:layout_editor_absoluteX="245dp" android:id="@+id/friends_wish_list_private_button" android:text="private" android:layout_alignTop="@+id/friends_wish_list_public_button" android:layout_alignParentEnd="true"/>
+
+    <ListView android:layout_height="388dp" android:layout_width="match_parent" tools:layout_editor_absoluteY="191dp" tools:layout_editor_absoluteX="0dp" android:layout_alignParentStart="true" android:id="@+id/friends_wish_list_items_listview" android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

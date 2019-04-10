@@ -33,7 +33,7 @@ public class AddingItem extends AppCompatActivity {
     Button choose;
     Button btn_addingItem_add_button;
     Button btn_addingItem_search_button;
-Item item;
+    Item item;
     public DatabaseReference mDatabase;
     String [] listsname;
     String username1;
@@ -140,9 +140,7 @@ Item item;
                             mDatabase.child("Users").child(username1).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Toast.makeText(AddingItem.this,"I'm here", Toast.LENGTH_SHORT).show();
                                     number=dataSnapshot.getChildrenCount();
-                                   Log.d("ho",number+"");
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
