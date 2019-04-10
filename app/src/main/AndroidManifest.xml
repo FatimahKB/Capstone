@@ -25,6 +25,8 @@
         <activity android:name=".people_cherites" />
         <activity android:name=".AddingItem" />
         <activity android:name=".PrivateWishlists" />
+        <activity android:name=".user_wishlist" />
+
         <activity
             android:name=".createPrivateList"
             android:label="@string/title_activity_create_private_list" />

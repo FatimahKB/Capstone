@@ -45,11 +45,14 @@ public class AddingItem extends AppCompatActivity {
     ArrayList<String> finallists = new ArrayList<>();
     String nameList="";
     long number;
+    final HashMap<String,Long> hMap = new HashMap<String, Long>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
+
+        //intializing controls
         btn_addingItem_search_button =(Button) findViewById(R.id.addingItem_search_button);
         btn_addingItem_add_button =(Button) findViewById(R.id.addingItem_add_button);
         choose=(Button)findViewById(R.id.addingItem_choose_button);
@@ -58,16 +61,15 @@ public class AddingItem extends AppCompatActivity {
         quantity=(EditText)findViewById(R.id.addingItem_quality_editText);
         link=(EditText)findViewById(R.id.addingItem_link_editText);
         text=(TextView)findViewById(R.id.adding_item_textView);
+
+
         // To get an instance of the databse so we can add/remove etc..
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String username [] =user.getEmail().split("@");
-//      listsname=getResources().getStringArray(R.array.listsname);
-        final HashMap<String,Long> hMap = new HashMap<String, Long>();
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-         username1=sharedPreferences.getString("username","");
 
-        mDatabase.child("Users").child(username1).child("Lists").addValueEventListener(new ValueEventListener() {
+        //
+        mDatabase.child("Users").child(username[0]).child("Lists").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot n : dataSnapshot.getChildren()){
@@ -82,7 +84,7 @@ public class AddingItem extends AppCompatActivity {
         });
 
 
-        mDatabase.child("Users").child(username1).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
+        mDatabase.child("Users").child(username[0]).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 lists.add("Public");
@@ -96,12 +98,6 @@ public class AddingItem extends AppCompatActivity {
                 listsname= lists.toArray(listsname);
                 checkedLists=new boolean [listsname.length];
             }
-                // Get Post object and use the values to update the UI
-//                Toast.makeText(AddingItem.this,"here "+(mDatabase.child("Users").child(username1).child("Private").child("Birthday")), Toast.LENGTH_SHORT).show();
-//                for (DataSnapshot n : dataSnapshot.getChildren()) {
-////                    Toast.makeText(AddingItem.this,"I'm here", Toast.LENGTH_SHORT).show();
-//                        lists.add(n.child("name").getValue().toString());
-//                    }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -111,7 +107,6 @@ public class AddingItem extends AppCompatActivity {
             }
         });
 
-//                    Toast.makeText(AddingItem.this,"I'm here"+lists.size(), Toast.LENGTH_SHORT).show();
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,8 +167,6 @@ public class AddingItem extends AppCompatActivity {
                             });
                              item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
 
-
-
                             continue;
                             }
                         DatabaseReference d = mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList);
@@ -181,18 +174,15 @@ public class AddingItem extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot d) {
                                  number+=d.getChildrenCount();
-                           //     Log.d("the",number+"");
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                                 // Getting Post failed, log a message
-                                Log.w(null, "loadPost:onCancelled", databaseError.toException());
                                 // ...
                             }
                         });
                          item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()));
                         mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+hMap.get(nameList)).setValue(item);
-                     //   Log.d("he",number+" i");
 
                     }
                     finallists.clear();
@@ -208,14 +198,6 @@ public class AddingItem extends AppCompatActivity {
             }
         });
 
-//        btn_addingItem_add_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //NOTE: navigate to public/private correctly
-//                startActivity(new Intent(AddingItem.this,user_wishlist.class));
-//
-//            }
-//        });
     }
     public boolean valid() {
         if (name.getText().toString().isEmpty() || quantity.getText().toString().isEmpty() || price.getText().toString().isEmpty() ) {

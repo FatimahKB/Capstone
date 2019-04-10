@@ -29,18 +29,11 @@ public class MainActivity extends AppCompatActivity {
     Button log_inControl;
     Button create_accountControl;
     FirebaseAuth firebaseAuth;
-    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-        Button btn_login_login_button =(Button) findViewById(R.id.login_login_button);
-        Button btn_login_create_new_account_button =(Button) findViewById(R.id.login_create_new_account_button);
 
         //Initialize controls
         emailControl=(EditText)findViewById(R.id.login_email_editText);
@@ -48,28 +41,20 @@ public class MainActivity extends AppCompatActivity {
         log_inControl=(Button)findViewById(R.id.login_login_button);
         create_accountControl=(Button)findViewById(R.id.login_create_new_account_button);
         firebaseAuth = FirebaseAuth.getInstance();
-        final SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
 
-
+        //logging in and checking authorization
         log_inControl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validate()) {
                      final String email = emailControl.getText().toString().trim();
                      String password_ = passwordControl.getText().toString().trim();
-                    Log.d("hi",email);
+
                     firebaseAuth.signInWithEmailAndPassword(email, password_).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                String username [] =email.split("@");
                                 Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
-
-                                SharedPreferences.Editor e =sharedPreferences.edit();
-
-                                e.putString("username",username[0]);
-                                e.commit();
                                 startActivity(new Intent(MainActivity.this,Profile.class));
 
                             }
@@ -89,24 +74,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        btn_login_login_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {//NOTE: after validation
-//                startActivity(new Intent(MainActivity.this,Profile.class));
-//              //  startActivity(new Intent(MainActivity.this,UploadImage.class));
-//
-//            }
-//        });
-
-        btn_login_create_new_account_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CreateAccount.class));
-
-            }
-        });
     }
-
+    //checking for empty fields
     public boolean validate(){
         if(emailControl.getText().toString().isEmpty() || passwordControl.getText().toString().isEmpty()){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
@@ -116,23 +85,4 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }}
-//}
-//    Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-//    StorageReference riversRef = storageRef.child("images/rivers.jpg");
-//
-//riversRef.putFile(file)
-//        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//@Override
-//public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//        // Get a URL to the uploaded content
-//        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//        }
-//        })
-//        .addOnFailureListener(new OnFailureListener() {
-//@Override
-//public void onFailure(@NonNull Exception exception) {
-//        // Handle unsuccessful uploads
-//        // ...
-//        }
-//        });
 

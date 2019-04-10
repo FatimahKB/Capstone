@@ -25,76 +25,42 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+
 public class Profile extends AppCompatActivity {
-    public DatabaseReference mDatabase;
-    FirebaseUser user;
-    ListView items_list;
-    ArrayList<String> all_items_list=new ArrayList<>();
-    Button private_list;
-    Button public_list;
-    Button profile;
-    Button add;
-    TextView v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        items_list= (ListView)findViewById(R.id.Profile_publicItems_ListView);
-        private_list=(Button)findViewById(R.id.profile_private_button);
-        public_list=(Button)findViewById(R.id.profile_public_button);
-        add=(Button)findViewById(R.id.profile_add_button);
-        v=(TextView) findViewById(R.id.textView4Test);
-        profile=(Button)findViewById(R.id.button2);
-        //displaying the public list's items
-        user= FirebaseAuth.getInstance().getCurrentUser();
-        String username []=user.getEmail().split("@");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
-        String username1=sharedPreferences.getString("username","");
-        v.setText(username1);
-
-        mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
+         setContentView(R.layout.activity_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Public"));
+        tabLayout.addTab(tabLayout.newTab().setText("Private"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(tabsAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                all_items_list=new ArrayList<>();
-                // Get Post object and use the values to update the UI
-                for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    if (n.getKey().equals("username") || n.getKey().equals("email"))
-                        continue;
-                    Item item = n.getValue(Item.class);
-                    all_items_list.add(item.getName());
-                    ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(Profile.this, android.R.layout.simple_list_item_1,all_items_list));
-                    items_list.setAdapter(adapter1);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-                }
-                Toast.makeText(Profile.this, "bye"+all_items_list.size(), Toast.LENGTH_SHORT).show();
-
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        });
+            public void onTabReselected(TabLayout.Tab tab) {
 
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    startActivity(new Intent(Profile.this,AddingItem.class));
-
-            }
-        });
-
-        private_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent (Profile.this, PrivateWishlists.class));
             }
         });
     }

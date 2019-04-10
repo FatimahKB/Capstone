@@ -11,19 +11,15 @@ public class User {
 
     public User(){}
 
-    public User(String username){
-        this.username=username;
-    }
+//    public User(String username){
+//        this.username=username;
+//    }
+
     public User(String username,String password, String DOB){
         this.username=username;
         this.password=password;
         this.DOB=DOB;
     }
-//    public User(String username,String password, String DOB){
-//        this.username=username;
-//        this.password=password;
-//        this.DOB=DOB;
-//    }
 
     public String getUsername() {
         return username;

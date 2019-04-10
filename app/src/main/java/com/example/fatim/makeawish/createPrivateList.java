@@ -32,6 +32,8 @@ public class createPrivateList extends Activity {
         name=(EditText)findViewById(R.id.createPrivate_label_editText);
         expiration= (Button)findViewById(R.id.createPrivate_expDate_textView);
         create = (Button)findViewById(R.id.createPrivate_Create_button);
+
+        //create a datepicker
         final Calendar c=Calendar.getInstance();
         DateFormat expDate= DateFormat.getDateInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();

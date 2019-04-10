@@ -40,6 +40,8 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        //Creating a datepicker
         final Calendar c=Calendar.getInstance();
         DateFormat expDate= DateFormat.getDateInstance();
         final DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
@@ -76,7 +78,6 @@ public class CreateAccount extends AppCompatActivity {
                     final String email = email_control.getText().toString().trim();
                     final String [] username= email.split("@");
                     final String password = password_control.getText().toString().trim();
-                    //final Date DOB = new Date (c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
                     final String DOB = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH);
 
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -88,7 +89,8 @@ public class CreateAccount extends AppCompatActivity {
                                 mDatabase.child("Users").child(username[0]).setValue(user);
                                 Toast.makeText(CreateAccount.this, "Registration Successful", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(CreateAccount.this, MainActivity.class));
-                            } else {
+                            }
+                            else {
                                 Toast.makeText(CreateAccount.this, "Registration failed", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -97,7 +99,7 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
     }
-
+    //checking for empty fields
     public boolean valid() {
         if (username_control.getText().toString().isEmpty() || email_control.getText().toString().isEmpty() || password_control.getText().toString().isEmpty() || confirmPassword_control.getText().toString().isEmpty()) {
             Toast.makeText(this, "Please fill all the required fields", Toast.LENGTH_SHORT).show();
