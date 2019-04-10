@@ -5,8 +5,13 @@ import java.util.Date;
 
 public class PrivateWishlist extends Wishlist {
 
-    ArrayList<User> authorizedList = new ArrayList<User>();
-    Date expDate;
+    private ArrayList<User> authorizedList = new ArrayList<User>();
+    private Date expDate;
+    private String name;
+
+    public PrivateWishlist(){
+
+    }
 
     public PrivateWishlist(String name, Date exp){
         this.name=name;
@@ -28,4 +33,12 @@ public class PrivateWishlist extends Wishlist {
     public void setAuthorizedList(ArrayList<User> authorizedList) {
         this.authorizedList = authorizedList;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }
