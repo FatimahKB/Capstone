@@ -32,7 +32,7 @@
         android:layout_marginTop="90dp"
         android:background="@drawable/roundedbutton"
         android:text="ACCEPT"
-        android:onClick="myClickHandler"
+        android:onClick="accept"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <Button
@@ -43,6 +43,7 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/roundedbutton"
         android:text="DECLINE"
+        android:onClick="decline"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
 </RelativeLayout>

@@ -12,7 +12,6 @@
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:background="#c7000000"
-        app:itemBackground="@android:color/transparent"
         app:itemIconTint="#FFFFFF"
         app:itemTextColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

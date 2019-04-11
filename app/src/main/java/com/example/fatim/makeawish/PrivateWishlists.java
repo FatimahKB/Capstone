@@ -17,7 +17,7 @@ public class PrivateWishlists extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_wishlists);
 
-        Button btn_imageButton =(Button) findViewById(R.id.add_private);
+        ImageButton btn_imageButton =(ImageButton) findViewById(R.id.imageButton);
         btn_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
