@@ -21,12 +21,14 @@
 
     <Button
         android:id="@+id/addingItem_search_button"
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/addingItem_line_textview"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-123dp"
+        android:background="@drawable/roundedbutton"
         android:text="search for an item"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="85dp" />
 
@@ -60,7 +62,9 @@
         android:layout_marginTop="229dp"
         android:ems="10"
         android:hint="Name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textCursorDrawable="@drawable/bluecursor"
+        android:backgroundTint="@color/blue"/>
 
     <EditText
         android:id="@+id/addingItem_price_editText"
@@ -71,7 +75,9 @@
         android:layout_marginBottom="226dp"
         android:ems="10"
         android:hint="Price"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textCursorDrawable="@drawable/bluecursor"
+        android:backgroundTint="@color/blue"/>
 
     <EditText
         android:id="@+id/addingItem_quality_editText"
@@ -82,7 +88,8 @@
         android:layout_marginBottom="169dp"
         android:ems="10"
         android:hint="Quantity"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textCursorDrawable="@drawable/bluecursor"/>
 
     <EditText
         android:id="@+id/addingItem_link_editText"
@@ -93,7 +100,8 @@
         android:layout_marginBottom="107dp"
         android:ems="10"
         android:hint="Link"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textCursorDrawable="@drawable/bluecursor"/>
 
     <Button
         android:id="@+id/addingItem_add_button"
@@ -101,15 +109,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Add" />
+        android:background="@drawable/roundedbutton"
+        android:text="Add"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        />
 
     <Button
         android:id="@+id/addingItem_choose_button"
-        android:layout_width="wrap_content"
+        android:layout_width="116dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addingItem_link_editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-107dp"
-        android:text="Choose lists" />
+        android:background="@drawable/roundedbutton"
+        android:text="Choose lists"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
 </RelativeLayout>
