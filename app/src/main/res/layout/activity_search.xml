@@ -12,43 +12,78 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="110dp"
         android:ems="10"
         android:hint="Search"
         android:inputType="text" />
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/search_users_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="91dp"
-        android:text="Users" />
-
-    <Button
-        android:id="@+id/search_charties_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/search_users_button"
-        android:layout_centerHorizontal="true"
-        android:text="Charities" />
-
-    <Button
-        android:id="@+id/search_items_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/search_users_button"
-        android:layout_marginEnd="33dp"
-        android:text="items" />
-
-    <ListView
-        android:id="@+id/search_result_listView"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="164dp" />
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout"/>
+
+
+    <!--<Button-->
+        <!--android:id="@+id/search_users_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginStart="34dp"-->
+        <!--android:layout_marginTop="91dp"-->
+        <!--android:text="Users" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/search_charties_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignTop="@+id/search_users_button"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="Charities" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/search_items_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignTop="@+id/search_users_button"-->
+        <!--android:layout_marginEnd="33dp"-->
+        <!--android:text="items" />-->
+
+    <!--<ListView-->
+        <!--android:id="@+id/searchuser_result_listView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="315dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="164dp" />-->
 </RelativeLayout>

@@ -5,9 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 
-public class TabsAdapter extends FragmentStatePagerAdapter {
+public class TabsAdapterProfile extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    public TabsAdapter(FragmentManager fm, int NoofTabs){
+    public TabsAdapterProfile(FragmentManager fm, int NoofTabs){
         super(fm);
         this.mNumOfTabs = NoofTabs;
     }
@@ -19,7 +19,8 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 1:
-                PrivateListsLayout privateLists = new PrivateListsLayout();
+             //   PrivateListsLayout privateLists = new PrivateListsLayout();
+                PrivateListsFragment privateLists = new PrivateListsFragment();
                 return privateLists;
             case 0:
                 PublicListFragment publicList = new PublicListFragment();

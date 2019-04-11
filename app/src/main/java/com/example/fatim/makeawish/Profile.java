@@ -1,35 +1,14 @@
 package com.example.fatim.makeawish;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 
 public class Profile extends AppCompatActivity {
 
@@ -44,7 +23,7 @@ public class Profile extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Private"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        TabsAdapterProfile tabsAdapter = new TabsAdapterProfile(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(tabsAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -60,6 +39,15 @@ public class Profile extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        Button btn =(Button) findViewById(R.id.Button2);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Search.class));
 
             }
         });
