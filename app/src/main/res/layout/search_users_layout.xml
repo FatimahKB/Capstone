@@ -3,20 +3,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/searchbtnUser"
+    android:id="@+id/main_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/search_searchBar_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="84dp"
-        android:background="@color/common_google_signin_btn_text_dark_default"
-        android:text="Search" />
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/userSearchbtn"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="54dp"
+
+        android:background="@drawable/roundedbutton"
+        android:text="Search"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+
     <ListView
         android:id="@+id/searchuser_result_listView"
         android:layout_width="match_parent"
         android:layout_height="356dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="156dp" />
+
 </RelativeLayout>
