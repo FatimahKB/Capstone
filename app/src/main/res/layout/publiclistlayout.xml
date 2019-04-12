@@ -88,12 +88,12 @@
     android:layout_marginTop="199dp" />
 
     <Button
-    android:id="@+id/profile_add_button"
-    android:layout_width="54dp"
-    android:layout_height="56dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:background="@drawable/add" />
+        android:id="@+id/profile_add_button"
+        android:layout_width="54dp"
+        android:layout_height="56dp"
+        android:layout_alignBottom="@+id/Profile_publicItems_ListView"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/add" />
 
 
     <Button

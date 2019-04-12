@@ -36,6 +36,7 @@ public class PublicListFragment extends Fragment {
         final View view = inflater.inflate(R.layout.publiclistlayout, viewGroup, false);
         items_list = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
 
+
         add=(Button)view.findViewById(R.id.profile_add_button);
         profile=(Button)view.findViewById(R.id.button2);
 
@@ -68,11 +69,10 @@ public class PublicListFragment extends Fragment {
             }
         });
 
-        Button btn =(Button) view.findViewById(R.id.button2);
-        btn.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Search.class));
+                startActivity(new Intent(getActivity(), AddingItem.class));
 
             }
         });
