@@ -52,6 +52,7 @@
         android:layout_marginEnd="108dp"
         android:background="@drawable/roundedbutton"
         android:text="Buy"
+        android:onClick="buy"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <Button
@@ -63,5 +64,6 @@
         android:layout_marginEnd="13dp"
         android:background="@drawable/roundedbutton"
         android:text="cancel"
+        android:onClick="cancel"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
 </RelativeLayout>

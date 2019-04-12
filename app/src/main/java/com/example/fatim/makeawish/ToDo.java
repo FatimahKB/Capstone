@@ -1,8 +1,6 @@
 package com.example.fatim.makeawish;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +40,10 @@ public class ToDo extends AppCompatActivity {
 
     String username[];
     String friends="";
-
+    long number;
+    long number1;
+    Gift gift;
+    Gift gift1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,7 +203,6 @@ public class ToDo extends AppCompatActivity {
     }
 
     public void accept(View v){
-
         final int position=(Integer)v.getTag();
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
@@ -262,26 +262,81 @@ public class ToDo extends AppCompatActivity {
         });
     }
 
-//    public void buy(View v){
-//
-//        final int position=(Integer)v.getTag();
-//        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addValueEventListener( new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot n : dataSnapshot.getChildren()) {
-//                    if (n.getValue().equals(friendRequestsArray[position])) {
-//                        mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        });
-//    }
+    public void buy(View v){
+        final int position=(Integer)v.getTag();
+        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    Gift gift = n.getValue(Gift.class);
+                    Gift gift1=itemsToBuyList.get(position);
+                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getPrice()==gift1.getPrice())
+                        mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+        startActivity(new Intent(ToDo.this,Buying.class));
+    }
+
+    public void cancel(View v){
+        final int position=(Integer)v.getTag();
+        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                     gift = n.getValue(Gift.class);
+                     gift1=itemsToBuyList.get(position);
+                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getWishlist().equals(gift1.getWishlist()))
+                    {
+                        mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+
+                        if(gift1.getWishlist().equals("Public")){
+                            mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice());
+                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                    // ...
+                                }
+                            });
+
+                        }else{
+                            mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice());
+                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                    // ...
+                                }
+                            });
+                           }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+    }
 }
 
 
