@@ -40,7 +40,7 @@ public class PublicListFragment extends Fragment {
         items_list = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
 
 
-        add=(Button)view.findViewById(R.id.profile_add_button);
+        add=(Button)view.findViewById(R.id.publicList_add_button);
         profile=(Button)view.findViewById(R.id.customlayout_decline_button);
 
         //displaying the public list's items
@@ -61,7 +61,9 @@ public class PublicListFragment extends Fragment {
                     all_items_list.add(item.getName());
                     ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, all_items_list));
                     items_list.setAdapter(adapter1);
+
                 }
+
             }
 
             @Override

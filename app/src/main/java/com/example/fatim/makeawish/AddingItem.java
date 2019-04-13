@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class AddingItem extends AppCompatActivity {
     EditText link;
     Button choose;
     Button btn_addingItem_add_button;
-    Button btn_addingItem_search_button;
+//    Button btn_addingItem_search_button;
     Item item;
     public DatabaseReference mDatabase;
     String [] listsname;
@@ -53,7 +54,7 @@ public class AddingItem extends AppCompatActivity {
         setContentView(R.layout.activity_adding_item);
 
         //intializing controls
-        btn_addingItem_search_button =(Button) findViewById(R.id.addingItem_search_button);
+//        btn_addingItem_search_button =(Button) findViewById(R.id.addingItem_search_button);
         btn_addingItem_add_button =(Button) findViewById(R.id.addingItem_add_button);
         choose=(Button)findViewById(R.id.addingItem_choose_button);
         name=(EditText)findViewById(R.id.addingItem_name_editText);
@@ -61,7 +62,8 @@ public class AddingItem extends AppCompatActivity {
         quantity=(EditText)findViewById(R.id.addingItem_quality_editText);
         link=(EditText)findViewById(R.id.addingItem_link_editText);
         text=(TextView)findViewById(R.id.adding_item_textView);
-
+        String styledText = "<u>Choose Lists</u>";
+        choose.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
 
         // To get an instance of the databse so we can add/remove etc..
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -191,12 +193,12 @@ public class AddingItem extends AppCompatActivity {
 
         });
 
-        btn_addingItem_search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AddingItem.this,Search.class));
-            }
-        });
+//        btn_addingItem_search_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(AddingItem.this,Search.class));
+//            }
+//        });
 
     }
     public boolean valid() {

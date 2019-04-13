@@ -36,6 +36,7 @@ public class PrivateListsFragment extends Fragment{
     TextView t;
     String friends;
     int friendsNumber;
+    Button addPrivateList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
@@ -43,6 +44,7 @@ public class PrivateListsFragment extends Fragment{
         t = (TextView) view.findViewById(R.id.textView);
         privateLists = (ListView) view.findViewById(R.id.lliisstt);
         friendsNumberText=(TextView) view.findViewById(R.id.Private_FriendsNumber_TextView);
+        addPrivateList = (Button) view.findViewById(R.id.PrivateList_add_button);
        // privateLists = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
         //displaying the public list's items
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -62,9 +64,10 @@ public class PrivateListsFragment extends Fragment{
                         continue;
                     PrivateWishlist item = n.getValue(PrivateWishlist.class);
                     all_private_list.add(item.getName());
-                    ArrayAdapter<String> adapter2 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,all_private_list));
-                    privateLists.setAdapter(adapter2);
+
                 }
+                ArrayAdapter<String> adapter2 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,all_private_list));
+                privateLists.setAdapter(adapter2);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -74,12 +77,19 @@ public class PrivateListsFragment extends Fragment{
             }
         });
 
+        addPrivateList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),createPrivateList.class));
+            }
+        });
+
         privateLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String s = privateLists.getItemAtPosition(position).toString();
 //                t = (TextView) getActivity().findViewById(R.id.textView);
-                t.setText("Hey there" + s);
+//                t.setText("Hey there" + s);
             }
         });
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {

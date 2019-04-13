@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 public class createPrivateList extends Activity {
     EditText name;
-    Button expiration;
+//    Button expiration;
     Button create;
     String date;
     DatabaseReference mDatabase;
@@ -30,7 +30,7 @@ public class createPrivateList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_private_list);
         name=(EditText)findViewById(R.id.createPrivate_label_editText);
-        expiration= (Button)findViewById(R.id.createPrivate_expDate_textView);
+//        expiration= (Button)findViewById(R.id.createPrivate_expDate_textView);
         create = (Button)findViewById(R.id.createPrivate_Create_button);
 
         //create a datepicker
@@ -46,12 +46,12 @@ public class createPrivateList extends Activity {
             }
         };
 
-        expiration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(createPrivateList.this,d, c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+//        expiration.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new DatePickerDialog(createPrivateList.this,d, c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override

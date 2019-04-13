@@ -208,7 +208,7 @@ public class ToDo extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     friends = dataSnapshot.getValue(String.class);
                     mDatabase.child("Users").child(username[0]).child("friends").setValue(friends+", "+friendRequestsArray[position]);
-                    mDatabase.child("Users").child(friendRequestsArray[position].toString()).child("friends").setValue(friends+", "+username[0]);
+                    mDatabase.child("Users").child(friendRequestsArray[position].toString()).child("friends").setValue(friends+","+username[0]);
                 }else{
                     mDatabase.child("Users").child(username[0]).child("friends").setValue(friendRequestsArray[position]);
                 }
@@ -220,7 +220,10 @@ public class ToDo extends AppCompatActivity {
                 // ...
             }
 
+
         });
+        finish();
+        startActivity(getIntent());
         mDatabase.child("Users").child(username[0]).child("friendRequests").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -258,6 +261,8 @@ public class ToDo extends AppCompatActivity {
                 // ...
             }
         });
+        finish();
+        startActivity(getIntent());
     }
 
     public void buy(View v){
@@ -334,5 +339,7 @@ public class ToDo extends AppCompatActivity {
                 // ...
             }
         });
+        finish();
+        startActivity(getIntent());
     }
 }

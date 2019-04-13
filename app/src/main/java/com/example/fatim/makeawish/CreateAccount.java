@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,11 +37,13 @@ public class CreateAccount extends AppCompatActivity {
     Button create_control;
     public DatabaseReference mDatabase;
     User user;
+    Button btnDOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
 
         //Creating a datepicker
         final Calendar c=Calendar.getInstance();
@@ -52,7 +56,7 @@ public class CreateAccount extends AppCompatActivity {
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         };
-        Button btnDOB = (Button) findViewById(R.id.create_account_dob_button);
+         btnDOB = (Button) findViewById(R.id.create_account_dob_button);
         btnDOB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +74,8 @@ public class CreateAccount extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        String styledText = "<u>Date of birth</u>";
+        btnDOB.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
         create_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

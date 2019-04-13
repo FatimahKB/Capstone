@@ -12,19 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="190dp"
         android:ems="10"
-        android:hint="Label"
+        android:hint="Name of wishlist"
         android:inputType="text" />
-
-    <TextView
-        android:id="@+id/createPrivate_authorizedPeople_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="259dp"
-        android:text="Authorized people" />
 
     <Button
         android:id="@+id/createPrivate_Create_button"
@@ -33,16 +24,19 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="219dp"
-        android:text="Create" />
+        android:background="@drawable/roundedbutton"
+        android:text="Create"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
-    <Button
-        android:id="@+id/createPrivate_expDate_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="174dp"
-        android:text="Expiry Date" />
+    <!--<Button-->
+        <!--android:id="@+id/createPrivate_expDate_textView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="174dp"-->
+        <!--android:background="@drawable/roundedbutton"-->
+        <!--android:text="Expiry Date" />-->
 
 
 </RelativeLayout>
