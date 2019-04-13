@@ -30,17 +30,19 @@ public class PrivateListsFragment extends Fragment{
     ListView privateLists;
     FirebaseUser user;
     ArrayList<String> all_private_list;
-
+    TextView friendsNumberText;
     ListView items_list;
     ArrayList<String> all_items_list = new ArrayList<>();
     TextView t;
-
+    String friends;
+    int friendsNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.privatelistslayout, viewGroup, false);
         t = (TextView) view.findViewById(R.id.textView);
         privateLists = (ListView) view.findViewById(R.id.lliisstt);
+        friendsNumberText=(TextView) view.findViewById(R.id.Private_FriendsNumber_TextView);
        // privateLists = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
         //displaying the public list's items
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -80,6 +82,32 @@ public class PrivateListsFragment extends Fragment{
                 t.setText("Hey there" + s);
             }
         });
+        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friends=dataSnapshot.getValue(String.class);
+                for(int i=0;i<friends.length();i++){
+                    if(friends.charAt(i)== ','){
+                        friendsNumber++;
+                    }
+                }
+                friendsNumberText.setText(friendsNumber+1+" friends");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+//
+        friendsNumberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent ( getActivity(),displayFriends.class));
+            }
+        });
+
         return  view;
    }
 }

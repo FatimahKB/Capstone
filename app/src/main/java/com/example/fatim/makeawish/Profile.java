@@ -55,7 +55,7 @@ public class Profile extends AppCompatActivity {
 //        public_list=(Button)findViewById(R.id.profile_public_button);
 //        friend = (Button)findViewById(R.id.friend1);
 //        add=(Button)findViewById(R.id.profile_add_button);
-//        friendsNumberText=(TextView)findViewById(R.id.profile_friends_textView5);
+        friendsNumberText=(TextView)findViewById(R.id.Profile_FriendsNumber_TextView);
         usernameText=(TextView)findViewById(R.id.profile_username_textView);
         //displaying the public list's items
         user= FirebaseAuth.getInstance().getCurrentUser();
@@ -85,31 +85,31 @@ public class Profile extends AppCompatActivity {
 //            }
 //        });
 //
-//        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                friends=dataSnapshot.getValue(String.class);
-//                for(int i=0;i<friends.length();i++){
-//                    if(friends.charAt(i)== ','){
-//                        friendsNumber++;
-//                    }
-//                }
-//                friendsNumberText.setText(friendsNumber+1+" friends");
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        });
+        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friends=dataSnapshot.getValue(String.class);
+                for(int i=0;i<friends.length();i++){
+                    if(friends.charAt(i)== ','){
+                        friendsNumber++;
+                    }
+                }
+                friendsNumberText.setText(friendsNumber+1+" friends");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
 //
-//        friendsNumberText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Profile.this,displayFriends.class));
-//            }
-//        });
+        friendsNumberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this,displayFriends.class));
+            }
+        });
 //
 //
 //        add.setOnClickListener(new View.OnClickListener() {

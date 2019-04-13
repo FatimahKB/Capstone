@@ -24,92 +24,92 @@
     android:layout_height="match_parent"
     tools:context=".Profile">
 
-    <!--<ImageView-->
-    <!--android:id="@+id/profile_profilepicture_imageView"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
+    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/profile_profilepicture_imageView"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginStart="31dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="26dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:srcCompat="@mipmap/ic_launcher_round" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/profile_username_textView"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentEnd="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginEnd="97dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="33dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="Greetings, Andro"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textAllCaps="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="18sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textStyle="bold|italic" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/profile_friends_textView5"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentEnd="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginEnd="137dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="68dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="5 friends"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textAllCaps="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textSize="18sp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textStyle="bold" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/profile_public_button"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentStart="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentTop="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginStart="48dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginTop="118dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="public" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/profile_private_button"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentEnd="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignTop="@+id/profile_public_button"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginEnd="61dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="private" />&ndash;&gt;-->
+
+    <!--<ListView-->
+    <!--android:id="@+id/Profile_publicItems_ListView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="303dp"-->
     <!--android:layout_alignParentStart="true"-->
     <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_marginStart="31dp"-->
-    <!--android:layout_marginTop="26dp"-->
-    <!--app:srcCompat="@mipmap/ic_launcher_round" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/profile_username_textView"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_marginEnd="97dp"-->
-    <!--android:layout_marginTop="33dp"-->
-    <!--android:text="Greetings, Andro"-->
-    <!--android:textAllCaps="true"-->
-    <!--android:textSize="18sp"-->
-    <!--android:textStyle="bold|italic" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/profile_friends_textView5"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_marginEnd="137dp"-->
-    <!--android:layout_marginTop="68dp"-->
-    <!--android:text="5 friends"-->
-    <!--android:textAllCaps="true"-->
-    <!--android:textSize="18sp"-->
-    <!--android:textStyle="bold" />-->
+    <!--android:layout_marginTop="199dp" />-->
 
     <!--<Button-->
-    <!--android:id="@+id/profile_public_button"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_marginStart="48dp"-->
-    <!--android:layout_marginTop="118dp"-->
-    <!--android:text="public" />-->
+    <!--android:id="@+id/profile_add_button"-->
+    <!--android:layout_width="54dp"-->
+    <!--android:layout_height="56dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:background="@drawable/add" />-->
+
 
     <!--<Button-->
-    <!--android:id="@+id/profile_private_button"-->
+    <!--android:id="@+id/customlayout_decline_button"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignTop="@+id/profile_public_button"-->
-    <!--android:layout_marginEnd="61dp"-->
-    <!--android:text="private" />-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:text="Button" />-->
 
-    <ListView
-    android:id="@+id/Profile_publicItems_ListView"
-    android:layout_width="match_parent"
-    android:layout_height="303dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="199dp" />
-
-    <Button
-    android:id="@+id/profile_add_button"
-    android:layout_width="54dp"
-    android:layout_height="56dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentEnd="true"
-    android:background="@drawable/add" />
-
-
-    <Button
-    android:id="@+id/button2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentTop="true"
-    android:text="Button" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="159dp"
-        android:text="NO NEEEED" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView4"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="159dp"-->
+        <!--android:text="NO NEEEED" />-->
 </RelativeLayout>

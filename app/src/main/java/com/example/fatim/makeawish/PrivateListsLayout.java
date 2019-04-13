@@ -38,37 +38,37 @@ public class PrivateListsLayout extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         final View view = inflater.inflate(R.layout.publiclist, viewGroup, false);
 
-//        privateLists = (ListView) view.findViewById(R.id.lliisstt);
-        privateLists = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
-        //displaying the public list's items
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        String username[] = user.getEmail().split("@");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("Users").child(username[0]).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                all_private_list=new ArrayList<>();
-                // Get Post object and use the values to update the UI
-                for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    if (n.getKey().equals("username") || n.getKey().equals("email"))
-                        continue;
-                    PrivateWishlist item = n.getValue(PrivateWishlist.class);
-                    all_private_list.add(item.getName());
-                    ArrayAdapter<String> adapter2 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,all_private_list));
-                    privateLists.setAdapter(adapter2);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        });
+////        privateLists = (ListView) view.findViewById(R.id.lliisstt);
+//        privateLists = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
+//        //displaying the public list's items
+//        user = FirebaseAuth.getInstance().getCurrentUser();
+//        String username[] = user.getEmail().split("@");
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//
+//        mDatabase.child("Users").child(username[0]).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                all_private_list=new ArrayList<>();
+//                // Get Post object and use the values to update the UI
+//                for (DataSnapshot n : dataSnapshot.getChildren()) {
+//                    if (n.getKey().equals("username") || n.getKey().equals("email"))
+//                        continue;
+//                    PrivateWishlist item = n.getValue(PrivateWishlist.class);
+//                    all_private_list.add(item.getName());
+//                    ArrayAdapter<String> adapter2 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,all_private_list));
+//                    privateLists.setAdapter(adapter2);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+  //      });
         return  view;
    }
 }

@@ -95,23 +95,15 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/add" />
 
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="206dp"
-        android:layout_marginEnd="40dp"
-        android:text="Button" />
-
     <TextView
-        android:id="@+id/textView4test"
+        android:id="@+id/Public_FriendsNumber_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/button2"
-        android:layout_marginTop="261dp"
+        android:layout_marginStart="61dp"
+        android:layout_marginTop="148dp"
         android:text="TextView" />
+
+
 </RelativeLayout>

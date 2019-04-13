@@ -83,8 +83,10 @@
         android:id="@+id/friend1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/profile_add_button"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="115dp"
+        android:layout_marginEnd="40dp"
         android:text="Button" />
 
 
