@@ -104,7 +104,7 @@ final View view = inflater.inflate(R.layout.search_users_layout, viewGroup, fals
                 e.commit();
                 Toast.makeText(getContext(),"toast 2 the searched user is :"+selected_user,Toast.LENGTH_LONG).show();
 
-                startActivity(new Intent(getContext(),History.class));
+                startActivity(new Intent(getContext(),FriendsWishList.class));
             }
         });
 

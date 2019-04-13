@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +53,8 @@ public class FriendsWishList extends AppCompatActivity {
         name=findViewById(R.id.friends_wish_list_name_textview);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         final String searched_username =sp.getString("searched_user","");
-        final String username =sp.getString("username","");
+//        final String username =sp.getString("username","");
+        final String username = FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@")[0];
 
         name.setText(searched_username);
 
@@ -69,9 +71,9 @@ public class FriendsWishList extends AppCompatActivity {
         mDatabase.child("Users").child(username).child("friends").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String all_friends=dataSnapshot.getValue().toString();
+                String all_friends=dataSnapshot.getValue(String.class);//.toString();
                 friend_list =new ArrayList<String>(Arrays.asList(all_friends.split(",")));
-                Toast.makeText(FriendsWishList.this,"friend : the searched user is :"+friend_list.get(0), Toast.LENGTH_LONG).show();
+               // Toast.makeText(FriendsWishList.this,"friend : the searched user is :"+friend_list.get(0), Toast.LENGTH_LONG).show();
 
             }
             @Override
@@ -86,7 +88,7 @@ public class FriendsWishList extends AppCompatActivity {
         public_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.child("Users").child(username).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
+                mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         all_items_list=new ArrayList<>();
@@ -144,7 +146,23 @@ public class FriendsWishList extends AppCompatActivity {
         private_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//check
-                mDatabase.child("Users").child(username).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
+                boolean isFriend=false;
+                for(int i =0; i<friend_list.size(); i++)
+                {
+                    if (friend_list.get(i).equals(searched_username.trim())) {
+                        isFriend = true;
+                        break;
+                    }
+                }
+                if(isFriend) {
+
+                }else
+                {
+                    Toast.makeText(FriendsWishList.this, "You are not friends!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                mDatabase.child("Users").child(searched_username).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         all_items_list=new ArrayList<>();
@@ -180,18 +198,7 @@ public class FriendsWishList extends AppCompatActivity {
                 });
             }
         });
-//                    boolean isFriend=false;
-//                    for(int i =0; i<friend_list.size(); i++)
-//                    {
-//                        if (friend_list.get(i).equals(searched_username.trim())) {
-//                            isFriend = true;
-//                            break;
-//                        }
-//                    }
-//                    if(isFriend) {
-//
-//                    }else
-//                        Toast.makeText(FriendsWishList.this, "You are not friends!", Toast.LENGTH_LONG).show();
+
 
     }}
 

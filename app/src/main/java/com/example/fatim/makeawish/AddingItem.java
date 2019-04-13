@@ -227,9 +227,9 @@ public class AddingItem extends AppCompatActivity {
         btn_addingItem_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddingItem.this, UploadImage.class));
+            //    startActivity(new Intent(AddingItem.this, UploadImage.class));
 
-            //    startActivity(new Intent(AddingItem.this,Search.class));
+               startActivity(new Intent(AddingItem.this,Search.class));
             }
         });
 
