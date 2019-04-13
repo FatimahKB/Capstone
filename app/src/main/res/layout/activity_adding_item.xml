@@ -50,6 +50,8 @@
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="choose"
         android:layout_marginTop="168dp"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 

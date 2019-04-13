@@ -9,16 +9,18 @@ public class Item {
     double remaining_price;
     String link;
     ImageView img;
+    String imgPath;
 
     public Item(){
 
     }
 
-    public Item(String name, int quantity, double price, double remaining_price){
+    public Item(String name, int quantity, double price, double remaining_price, String imgPath){
         this.name=name;
         this.quantity=quantity;
         this.price=price;
         this.remaining_price=remaining_price;
+        this.imgPath=imgPath;
     }
 
     public void setName(String name) {
@@ -70,4 +72,13 @@ public class Item {
     public void setLink(String link) {
         this.link=link;
     }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+
 }

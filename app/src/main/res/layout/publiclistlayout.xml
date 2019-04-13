@@ -80,12 +80,13 @@
     <!--android:text="private" />-->
 
     <ListView
-    android:id="@+id/Profile_publicItems_ListView"
-    android:layout_width="match_parent"
-    android:layout_height="303dp"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:layout_marginTop="199dp" />
+        android:id="@+id/Profile_publicItems_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="289dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="206dp" />
 
     <Button
         android:id="@+id/profile_add_button"
@@ -93,6 +94,8 @@
         android:layout_height="56dp"
         android:layout_alignBottom="@+id/Profile_publicItems_ListView"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/add" />
 
 
@@ -100,18 +103,10 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="206dp"
-        android:layout_marginEnd="40dp"
-        android:text="Button" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="617dp"
+        android:text="test" />
 
-    <TextView
-        android:id="@+id/textView4test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/button2"
-        android:layout_marginTop="261dp"
-        android:text="TextView" />
 </RelativeLayout>

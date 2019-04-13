@@ -38,7 +38,7 @@
     <ListView
         android:id="@+id/searchuser_result_listView"
         android:layout_width="match_parent"
-        android:layout_height="356dp"
+        android:layout_height="130dp"
         android:layout_alignParentBottom="true"
 
         android:layout_marginStart="0dp"

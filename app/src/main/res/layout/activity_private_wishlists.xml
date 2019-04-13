@@ -10,13 +10,14 @@
         android:id="@+id/privateWishlists_textView"
         android:layout_width="235dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
-
         android:layout_marginLeft="145dp"
+
+        android:layout_marginTop="43dp"
         android:text="Private Wishlists"
+        android:textColor="@color/blue"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="151dp"
         tools:layout_editor_absoluteY="50dp" />
