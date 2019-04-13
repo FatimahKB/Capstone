@@ -44,6 +44,7 @@ public class Profile extends AppCompatActivity {
     TextView usernameText;
     String friends;
     int friendsNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -184,4 +185,5 @@ public class Profile extends AppCompatActivity {
 
 
     }
+
 }

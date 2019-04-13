@@ -1,16 +1,21 @@
 package com.example.fatim.makeawish;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment; import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,23 +23,37 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class PublicListFragment extends Fragment {
     public DatabaseReference mDatabase;
     FirebaseUser user;
-    ListView items_list;
+  //  ListView items_list;
     ArrayList<String> all_items_list = new ArrayList<>();
+    ArrayList<String> all_itemsImg_list = new ArrayList<>();
+    FirebaseStorage   storage;
+    StorageReference storageRef;
     Button profile;
     Button add;
-
+    ListView mlistView;
     //   private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.publiclistlayout, viewGroup, false);
-        items_list = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
+    //    items_list = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
+//
+        storage= FirebaseStorage.getInstance();
+
+
+
+        mlistView = view.findViewById(R.id.Profile_publicItems_ListView);
+
+        CustomAdapter customAdapter = new CustomAdapter();
+        mlistView.setAdapter(customAdapter);
 
 
         add=(Button)view.findViewById(R.id.profile_add_button);
@@ -49,6 +68,7 @@ public class PublicListFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 all_items_list = new ArrayList<>();
+                all_itemsImg_list = new ArrayList<>();
 
                 // Get Post object and use the values to update the UI
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
@@ -56,8 +76,9 @@ public class PublicListFragment extends Fragment {
                         continue;
                     Item item = n.getValue(Item.class);
                     all_items_list.add(item.getName());
-                    ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, all_items_list));
-                    items_list.setAdapter(adapter1);
+                    all_itemsImg_list.add(item.getImgPath());
+                //    ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, all_items_list));
+                  //  items_list.setAdapter(adapter1);
                 }
             }
 
@@ -77,5 +98,43 @@ public class PublicListFragment extends Fragment {
             }
         });
         return view;
+    }
+    class CustomAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return all_itemsImg_list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            storageRef = storage.getReferenceFromUrl(all_itemsImg_list.get(position));
+
+           final View view = getLayoutInflater().inflate(R.layout.custom_layout,null);
+            final ImageView mImageView = view.findViewById(R.id.item_image);
+            TextView mTitle = view.findViewById(R.id.item_name);
+
+       //     mImageView.setImageResource(images[position]);
+            mTitle.setText(all_items_list.get(position));
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    mImageView.setImageBitmap(bitmap);
+        }
+    }        );    return view;
+
+        }
     }
 }
