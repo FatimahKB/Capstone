@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ItemsOfPrivateList"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,6 @@
         <activity android:name=".AddingItem" />
         <activity android:name=".PrivateWishlists" />
         <activity android:name=".user_wishlist" />
-
         <activity
             android:name=".createPrivateList"
             android:label="@string/title_activity_create_private_list" />
@@ -42,7 +42,7 @@
         <activity android:name=".SearchResultDisplay" />
         <activity android:name=".FriendsList" />
         <activity android:name=".FriendsWishList" />
-        <activity android:name=".ItemView"></activity>
+        <activity android:name=".ItemView" />
     </application>
 
 </manifest>
