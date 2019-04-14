@@ -217,7 +217,7 @@ public class AddingItem extends AppCompatActivity {
                         mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+hMap.get(nameList)).setValue(item);
 
                     }
-                    finallists.clear();
+                    //finallists.clear();
                     }
                     uploadImage();
             }

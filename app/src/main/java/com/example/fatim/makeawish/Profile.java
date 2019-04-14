@@ -2,6 +2,8 @@ package com.example.fatim.makeawish;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,9 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -44,6 +50,9 @@ public class Profile extends AppCompatActivity {
     TextView usernameText;
     String friends;
     int friendsNumber;
+//img
+    ImageView profileImg;
+    FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,23 @@ public class Profile extends AppCompatActivity {
         String username []=user.getEmail().split("@");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         usernameText.setText(username[0]);
+        //img
+        profileImg= (ImageView) findViewById(R.id.profile_profilepicture_imageView);
+        storage=FirebaseStorage.getInstance();
+        Log.d("hi",username[0]);
+        final StorageReference storageRef = storage.getReferenceFromUrl("gs://makeawish-3b12e.appspot.com/profilepictures/"+username[0]);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileImg.setImageBitmap(bitmap);
+//                        img.setWidth(50);
+//                        img.setMaxHeight(50);
+            }
+        });
+
+
 
 //        mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
 //            @Override
