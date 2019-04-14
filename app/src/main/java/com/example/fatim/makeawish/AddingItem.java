@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -68,18 +70,16 @@ public class AddingItem extends AppCompatActivity {
     ArrayList<String> finallists = new ArrayList<>();
     String nameList="";
     long number;
+    String username [];
     final HashMap<String,Long> hMap = new HashMap<String, Long>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
-
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
-
         //intializing controls
-        btn_addingItem_search_button =(Button) findViewById(R.id.addingItem_search_button);
+      //  btn_addingItem_search_button =(Button) findViewById(R.id.addingItem_search_button);
         btn_addingItem_add_button =(Button) findViewById(R.id.addingItem_add_button);
         choose=(Button)findViewById(R.id.addingItem_choose_button);
         name=(EditText)findViewById(R.id.addingItem_name_editText);
@@ -88,14 +88,15 @@ public class AddingItem extends AppCompatActivity {
         link=(EditText)findViewById(R.id.addingItem_link_editText);
         text=(TextView)findViewById(R.id.adding_item_textView);
         img=findViewById(R.id.addingItem_imageView);
-
+        String styledText = "<u>Choose lists</u>";
+        choose.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
         username1=FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@")[0];
 
 
         // To get an instance of the databse so we can add/remove etc..
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String username [] =user.getEmail().split("@");
+         username=user.getEmail().split("@");
 
         //
         mDatabase.child("Users").child(username[0]).child("Lists").addValueEventListener(new ValueEventListener() {
@@ -180,13 +181,13 @@ public class AddingItem extends AppCompatActivity {
                     for ( int i = 0; i < finallists.size(); i++) {
                         nameList=finallists.get(i);
                         if(nameList.equals("Public")){
-                            mDatabase.child("Users").child(username1).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
+                            mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     number=dataSnapshot.getChildrenCount();
                                     Toast.makeText(AddingItem.this,"I'm here"+number, Toast.LENGTH_LONG).show();
                                     Log.d("bbyee","heey there"+number+"");
-                                    mDatabase.child("Users").child(username1).child("Lists").child("Public").child("item" + +hMap.get("Public")).setValue(item);
+                                    mDatabase.child("Users").child(username[0]).child("Lists").child("Public").child("item" + +hMap.get("Public")).setValue(item);
 
                                 }
                                 @Override
@@ -195,13 +196,13 @@ public class AddingItem extends AppCompatActivity {
                                     Log.w(null, "loadPost:onCancelled", databaseError.toException());
                                 }
                             });
-                            path ="gs://makeawish-3b12e.appspot.com/"+"UserItemImage/"+ username1.toString()+"/"+first_list+"/"+name.getText().toString();
+                            path ="gs://makeawish-3b12e.appspot.com/"+"UserItemImage/"+ username[0].toString()+"/"+first_list+"/"+name.getText().toString();
                              item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()),path);
 
                             continue;
                             }
-                        DatabaseReference d = mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList);
-                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).addValueEventListener(new ValueEventListener() {
+                        DatabaseReference d = mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(nameList);
+                        mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(nameList).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot d) {
                                  number+=d.getChildrenCount();
@@ -212,12 +213,11 @@ public class AddingItem extends AppCompatActivity {
                                 // ...
                             }
                         });
-                        path ="gs://makeawish-3b12e.appspot.com/"+"UserItemImage/"+ username1.toString()+"/"+first_list+"/"+name.getText().toString();
+                        path ="gs://makeawish-3b12e.appspot.com/"+"UserItemImage/"+ username[0].toString()+"/"+first_list+"/"+name.getText().toString();
                         item = new Item(name.getText().toString(), Integer.parseInt(quantity.getText().toString()), Double.parseDouble(price.getText().toString()), Double.parseDouble(price.getText().toString()),path);
-                        mDatabase.child("Users").child(username1).child("Lists").child("Private").child(nameList).child("item"+hMap.get(nameList)).setValue(item);
+                        mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(nameList).child("item"+hMap.get(nameList)).setValue(item);
 
                     }
-                    finallists.clear();
                     }
                     uploadImage();
             }
@@ -242,7 +242,7 @@ public class AddingItem extends AppCompatActivity {
             pd.setTitle("Uploading...");
             pd.show();
 
-            StorageReference ref = storageReference.child("UserItemImage/"+ username1.toString()+"/"+first_list+"/"+name.getText().toString());
+            StorageReference ref = storageReference.child("UserItemImage/"+ username[0].toString()+"/"+first_list+"/"+name.getText().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

@@ -15,4 +15,12 @@
 
     <ListView android:layout_height="388dp" android:layout_width="match_parent" tools:layout_editor_absoluteY="191dp" tools:layout_editor_absoluteX="0dp" android:layout_alignParentStart="true" android:id="@+id/friends_wish_list_items_listview" android:layout_alignParentBottom="true"/>
 
+    <Button
+        android:id="@+id/friendwishlist_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Button" />
+
 </RelativeLayout>

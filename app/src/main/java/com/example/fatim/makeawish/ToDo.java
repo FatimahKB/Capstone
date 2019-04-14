@@ -31,7 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class ToDo extends AppCompatActivity {
@@ -52,6 +56,7 @@ public class ToDo extends AppCompatActivity {
     Gift gift;
     Gift gift1;
     FirebaseStorage storage;
+    BoughtHistory bh;
 
     ImageView image;
     @Override
@@ -308,7 +313,14 @@ public class ToDo extends AppCompatActivity {
                     Gift gift = n.getValue(Gift.class);
                     Gift gift1=itemsToBuyList.get(position);
                     if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getPrice()==gift1.getPrice())
+                    {
+                        Date date = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        String strDate = dateFormat.format(date);
+                        bh=new BoughtHistory(gift.getUsername(),gift.getGiftname(),gift.getPrice(), strDate);
+                        mDatabase.child("Users").child(username[0]).child("History").push().setValue(bh);
                         mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+                    }
                 }
             }
             @Override

@@ -36,6 +36,7 @@ public class FriendsWishList extends AppCompatActivity {
     Button public_list;
     TextView name;
     String selected_item;
+    Button add;
     int ifi;
     public ArrayList<String> friend_list=new ArrayList<String>();
     SharedPreferences sharedPreferences;
@@ -51,6 +52,7 @@ public class FriendsWishList extends AppCompatActivity {
         private_list=(Button)findViewById(R.id.friends_wish_list_private_button);
         public_list=(Button)findViewById(R.id.friends_wish_list_public_button);
         name=findViewById(R.id.friends_wish_list_name_textview);
+        add=(Button)findViewById(R.id.friendwishlist_add_button) ;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         final String searched_username =sp.getString("searched_user","");
 //        final String username =sp.getString("username","");
@@ -68,6 +70,15 @@ public class FriendsWishList extends AppCompatActivity {
 //            e.putString("clicked_item",selected_item);
 //            e.putLong("item_pos",position);
 //            e.commit();
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabase.child("Users").child(name.getText().toString().trim()).child("friendRequests").push().setValue(username);
+                Toast.makeText(FriendsWishList.this,"A request has been successfully sent", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
         mDatabase.child("Users").child(username).child("friends").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
