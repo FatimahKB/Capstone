@@ -54,7 +54,7 @@ public class Profile extends AppCompatActivity {
         items_list= (ListView)findViewById(R.id.Profile_publicItems_ListView);
 //        private_list=(Button)findViewById(R.id.profile_private_button);
 //        public_list=(Button)findViewById(R.id.profile_public_button);
-      friend = (Button)findViewById(R.id.friend1);
+     // friend = (Button)findViewById(R.id.friend1);
 //        add=(Button)findViewById(R.id.profile_add_button);
         friendsNumberText=(TextView)findViewById(R.id.Profile_FriendsNumber_TextView);
         usernameText=(TextView)findViewById(R.id.profile_username_textView);
@@ -121,13 +121,13 @@ public class Profile extends AppCompatActivity {
 //            }
 //        });
 //
-        friend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Profile.this,FriendsWishList.class));
-
-            }
-        });
+//        friend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Profile.this,FriendsWishList.class));
+//
+//            }
+//        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
 //        setSupportActionBar(toolbar);
