@@ -6,8 +6,9 @@ public class Gift {
     private String username;
     private String wishlist;
     private int quantity;
+    private String imgPath;
     public Gift(){}
-    public Gift(String giftname,double price, String username, String wishlist,int quantity){
+    public Gift(String giftname,double price, String username, String wishlist,int quantity,String imgPath){
         this.giftname=giftname;
         this.price=price;
         this.username=username;
@@ -16,14 +17,17 @@ public class Gift {
     }
 
 
-    public void setGifttame(String giftname) {
+    public void setGiftname(String giftname) {
         this.giftname = giftname;
     }
-    public void setUserame(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
     public void setPrice(double price) { this.price = price; }
     public void setWishlist(String wishlist) {
+        this.wishlist = wishlist;
+    }
+    public void setImgPath(String wishlist) {
         this.wishlist = wishlist;
     }
     public void setQuantity(int quantity) { this.quantity = quantity; }
@@ -33,6 +37,7 @@ public class Gift {
     }
     public String getGiftname() { return giftname; }
     public String getWishlist() { return wishlist; }
+    public String getImgPath() { return wishlist; }
     public int getQuantity() { return quantity; }
     public double getPrice() { return price; }
 }

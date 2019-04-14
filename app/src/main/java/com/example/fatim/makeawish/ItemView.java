@@ -2,6 +2,8 @@ package com.example.fatim.makeawish;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +30,10 @@ public class ItemView extends AppCompatActivity {
     TextView textViewItemName;
     TextView textViewPrice;
     TextView textViewQuantity;
+    ImageView img;
 
+
+    FirebaseStorage storage;
     String username [];
     TextView remaining_price;
     EditText editTextPitch;
@@ -44,6 +51,7 @@ public class ItemView extends AppCompatActivity {
         textViewPrice = (TextView) findViewById(R.id.textViewPrice);
         textViewQuantity = (TextView) findViewById(R.id.textViewQuantity);
         remaining_price = (TextView) findViewById(R.id.remaining_price);
+        img=findViewById(R.id.item_details_image);
 
         editTextPitch = (EditText) findViewById(R.id.editTextPitch);
         btnPitch = (Button) findViewById(R.id.btnPitch);
@@ -59,6 +67,19 @@ public class ItemView extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         username =user.getEmail().split("@");
+        storage=FirebaseStorage.getInstance();
+        final StorageReference storageRef = storage.getReferenceFromUrl(sharedPreferences.getString("path","gs://makeawish-3b12e.appspot.com/images.jpg"));
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                img.setImageBitmap(bitmap);
+//                        img.setWidth(50);
+//                        img.setMaxHeight(50);
+            }
+        });
 //        if(listType.equals("Public")){
 //        mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
 //
@@ -154,11 +175,11 @@ public class ItemView extends AppCompatActivity {
                 Log.d("hi",ListType);
                 if(ListType.equals("Public")){
                     //add the path
-                    Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" ,item_quantity);
+                    Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" ,item_quantity,"gs://makeawish-3b12e.appspot.com/placeholder.png");
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g);
 
                 }else{
-                    Gift g1 = new Gift(item_clicked, Double.parseDouble(item_price), searched_username,private_name, item_quantity);
+                    Gift g1 = new Gift(item_clicked, Double.parseDouble(item_price), searched_username,private_name, item_quantity,"gs://makeawish-3b12e.appspot.com/placeholder.png");
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g1);
                 }
 

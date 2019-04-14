@@ -39,6 +39,7 @@ public class FriendsWishList extends AppCompatActivity {
     TextView name;
     String selected_item;
     int ifi;
+    Item item;
     public ArrayList<String> friend_list=new ArrayList<String>();
     SharedPreferences sharedPreferences;
 
@@ -130,7 +131,7 @@ public class FriendsWishList extends AppCompatActivity {
                                 for (DataSnapshot n : dataSnapshot.getChildren()) {
                                     if (n.getKey().equals("name"))
                                         continue;
-                                    Item item = n.getValue(Item.class);
+                                    item = n.getValue(Item.class);
                                     if (item.getName().equals(selected_item)){
                                         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
                                         SharedPreferences.Editor e =sharedPreferences.edit();
@@ -152,12 +153,10 @@ public class FriendsWishList extends AppCompatActivity {
                                 // ...
                             }
                         });
-//                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
-//                        SharedPreferences.Editor e =sharedPreferences.edit();
-//                        e.putString("clicked_item",selected_item);
-//                        e.putString("listType","public");
-//                        e.putLong("item_pos",position);
-//                        e.commit();
+                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
+                        SharedPreferences.Editor e =sharedPreferences.edit();
+                        e.putString("path",item.imgPath);
+                        e.commit();
                         startActivity(new Intent(FriendsWishList.this,ItemView.class));
                     }
                 });
