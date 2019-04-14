@@ -15,12 +15,12 @@ public class Item {
 
     }
 
-    public Item(String name, int quantity, double price, double remaining_price, String imgPath){
+    public Item(String name, int quantity, double price, double remaining_price){//, String imgPath){
         this.name=name;
         this.quantity=quantity;
         this.price=price;
         this.remaining_price=remaining_price;
-        this.imgPath=imgPath;
+       //this.imgPath=imgPath;
     }
 
     public void setName(String name) {

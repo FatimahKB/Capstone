@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,18 +19,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class displayFriends extends AppCompatActivity {
     public DatabaseReference mDatabase;
     FirebaseUser user;
     String all_friends;
     String[] friends;
-    String selected_friend;
     ListView mlistView;
-    public ArrayList<String> all_users=new ArrayList<String>();
-    public ArrayList<String> users=new ArrayList<String>();
     SharedPreferences sharedPreferences;
+
+    String friends1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +36,8 @@ public class displayFriends extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user= FirebaseAuth.getInstance().getCurrentUser();
         String username []=user.getEmail().split("@");
+
+
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,17 +53,15 @@ public class displayFriends extends AppCompatActivity {
                 // ...
             }});
 
-
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selected_friend=(mlistView.getItemAtPosition(position)).toString();
+                friends1=(mlistView.getItemAtPosition(position)).toString();
                 sharedPreferences= PreferenceManager.getDefaultSharedPreferences(displayFriends.this);
                 SharedPreferences.Editor e =sharedPreferences.edit();
-                e.putString("friends",selected_friend);
-                e.putLong("item_pos",position);
+                e.putString("friends",friends1);
                 e.commit();
-                startActivity(new Intent(displayFriends.this, FriendsWishList.class));
+                startActivity(new Intent(displayFriends.this,FriendsWishList.class));
             }
         });
     }

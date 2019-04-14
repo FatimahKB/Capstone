@@ -55,8 +55,8 @@ public class PublicListFragment extends Fragment {
 
                 // Get Post object and use the values to update the UI
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    if (n.getKey().equals("username") || n.getKey().equals("email"))
-                        continue;
+//                    if (n.getKey().equals("username") || n.getKey().equals("email"))
+//                        continue;
                     Item item = n.getValue(Item.class);
                     all_items_list.add(item.getName());
                     ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, all_items_list));

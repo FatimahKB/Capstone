@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +28,9 @@ import java.util.List;
 
 public class FriendsWishList extends AppCompatActivity {
 
+
+
+
     public DatabaseReference mDatabase;
     ListView item_display;
     List<String> all_items_list=new ArrayList<>();
@@ -41,6 +43,7 @@ public class FriendsWishList extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +54,11 @@ public class FriendsWishList extends AppCompatActivity {
         private_list=(Button)findViewById(R.id.friends_wish_list_private_button);
         public_list=(Button)findViewById(R.id.friends_wish_list_public_button);
         name=findViewById(R.id.friends_wish_list_name_textview);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        final String searched_username =sp.getString("searched_user","");
-//        final String username =sp.getString("username","");
-        final String username = FirebaseAuth.getInstance().getCurrentUser().getEmail().split("@")[0];
+//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+//        final String searched_username =sp.getString("searched_user","");
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String searched_username=sharedPreferences.getString("friends","").trim();
 
         name.setText(searched_username);
 
@@ -68,12 +72,15 @@ public class FriendsWishList extends AppCompatActivity {
 //            e.putString("clicked_item",selected_item);
 //            e.putLong("item_pos",position);
 //            e.commit();
-        mDatabase.child("Users").child(username).child("friends").addValueEventListener( new ValueEventListener() {
+        mDatabase.child("Users").child(searched_username).addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String all_friends=dataSnapshot.getValue(String.class);//.toString();
-                friend_list =new ArrayList<String>(Arrays.asList(all_friends.split(",")));
-               // Toast.makeText(FriendsWishList.this,"friend : the searched user is :"+friend_list.get(0), Toast.LENGTH_LONG).show();
+                for (DataSnapshot n : dataSnapshot.getChildren()){
+
+                }
+                //               String all_friends=dataSnapshot.getValue().toString();
+                //          friend_list =new ArrayList<String>(Arrays.asList(all_friends.split(",")));
+                Toast.makeText(FriendsWishList.this,"friend : the searched user is :"+searched_username, Toast.LENGTH_LONG).show();
 
             }
             @Override
@@ -94,7 +101,7 @@ public class FriendsWishList extends AppCompatActivity {
                         all_items_list=new ArrayList<>();
                         // Get Post object and use the values to update the UI
                         for (DataSnapshot n : dataSnapshot.getChildren()) {
-                            if (n.getKey().equals("username") || n.getKey().equals("email"))
+                            if (n.getKey().equals("name"))
                                 continue;
                             Item item = n.getValue(Item.class);
                             all_items_list.add(item.getName());
@@ -111,15 +118,46 @@ public class FriendsWishList extends AppCompatActivity {
                     }
                 });
 /////////////////////////////////////
+                //public
                 item_display.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selected_item=(item_display.getItemAtPosition(position)).toString();
-                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
-                        SharedPreferences.Editor e =sharedPreferences.edit();
-                        e.putString("clicked_item",selected_item);
-                        e.putLong("item_pos",position);
-                        e.commit();
+                        mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Get Post object and use the values to update the UI
+                                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                                    if (n.getKey().equals("name"))
+                                        continue;
+                                    Item item = n.getValue(Item.class);
+                                    if (item.getName().equals(selected_item)){
+                                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
+                                        SharedPreferences.Editor e =sharedPreferences.edit();
+                                        e.putString("clicked_item",selected_item);
+                                        e.putString("price",item.getPrice()+"");
+                                        e.putInt("quantity",item.getQuantity());
+                                        e.putString("remaining_price",item.getRemaining_price()+"");
+                                        e.putString("listType","Public");
+                                        e.commit();
+                                    }
+
+
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Getting Post failed, log a message
+                                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                // ...
+                            }
+                        });
+//                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
+//                        SharedPreferences.Editor e =sharedPreferences.edit();
+//                        e.putString("clicked_item",selected_item);
+//                        e.putString("listType","public");
+//                        e.putLong("item_pos",position);
+//                        e.commit();
                         startActivity(new Intent(FriendsWishList.this,ItemView.class));
                     }
                 });
@@ -146,22 +184,6 @@ public class FriendsWishList extends AppCompatActivity {
         private_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//check
-                boolean isFriend=false;
-                for(int i =0; i<friend_list.size(); i++)
-                {
-                    if (friend_list.get(i).equals(searched_username.trim())) {
-                        isFriend = true;
-                        break;
-                    }
-                }
-                if(isFriend) {
-
-                }else
-                {
-                    Toast.makeText(FriendsWishList.this, "You are not friends!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
                 mDatabase.child("Users").child(searched_username).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -172,7 +194,7 @@ public class FriendsWishList extends AppCompatActivity {
                                 continue;
                             Item item = n.getValue(Item.class);
                             all_items_list.add(item.getName());
-                            ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(FriendsWishList.this, android.R.layout.simple_list_item_1, all_items_list));
+                            ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(FriendsWishList.this, android.R.layout.simple_list_item_1,all_items_list));
                             item_display.setAdapter(adapter1);
 
                         }
@@ -187,25 +209,34 @@ public class FriendsWishList extends AppCompatActivity {
                 item_display.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        selected_item=(item_display.getItemAtPosition(position)).toString();
+                        String selected_list=(item_display.getItemAtPosition(position)).toString();
                         sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
+                        Toast.makeText(FriendsWishList.this," and the searched list is "+selected_item, Toast.LENGTH_LONG).show();
+
                         SharedPreferences.Editor e =sharedPreferences.edit();
-                        e.putString("clicked_item",selected_item);
+                        e.putString("selected_private_list",selected_list);
                         e.putLong("item_pos",position);
+                        e.putString("listType","private");
                         e.commit();
                         startActivity(new Intent(FriendsWishList.this,ItemsOfPrivateList.class));
                     }
                 });
             }
         });
-
+//                    boolean isFriend=false;
+//                    for(int i =0; i<friend_list.size(); i++)
+//                    {
+//                        if (friend_list.get(i).equals(searched_username.trim())) {
+//                            isFriend = true;
+//                            break;
+//                        }
+//                    }
+//                    if(isFriend) {
+//
+//                    }else
+//                        Toast.makeText(FriendsWishList.this, "You are not friends!", Toast.LENGTH_LONG).show();
 
     }}
-
-
-
-
-
 
 
 

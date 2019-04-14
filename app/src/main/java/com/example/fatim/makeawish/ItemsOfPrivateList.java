@@ -1,6 +1,5 @@
 package com.example.fatim.makeawish;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -25,9 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ItemsOfPrivateList extends AppCompatActivity {
-
     FirebaseUser user;
     public DatabaseReference mDatabase;
     ListView item_display;
@@ -43,26 +40,33 @@ public class ItemsOfPrivateList extends AppCompatActivity {
         setContentView(R.layout.activity_items_of_private_list);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user= FirebaseAuth.getInstance().getCurrentUser();
-        item_display= (ListView)findViewById(R.id.list_private);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        back = (Button)findViewById(R.id.Back) ;
-        final String username =sp.getString("username","");
+        item_display= (ListView)findViewById(R.id.private_wish_list_items_listview);
+       // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        back = (Button)findViewById(R.id.Private_list) ;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String searched_list=sharedPreferences.getString("selected_private_list","").trim();
+        final String searched_username=sharedPreferences.getString("friends","").trim();
         //displaying the public list's items
+        all_items_list=new ArrayList<>();
 
-        mDatabase.child("Users").child(username).child("Lists").child("Private").addValueEventListener( new ValueEventListener() {
+        mDatabase.child("Users").child(searched_username).child("Lists").child("Private").child(searched_list).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                all_items_list=new ArrayList<>();
+
+                Toast.makeText(ItemsOfPrivateList.this, " and the searched list is " + searched_list, Toast.LENGTH_LONG).show();
+
                 // Get Post object and use the values to update the UI
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    if (n.getKey().equals("username") || n.getKey().equals("email"))
+                    if (n.getKey().equals("expiration") || n.getKey().equals("name"))
                         continue;
                     Item item = n.getValue(Item.class);
                     all_items_list.add(item.getName());
-                    ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(ItemsOfPrivateList.this, android.R.layout.simple_list_item_1,all_items_list));
-                    item_display.setAdapter(adapter1);
+
                 }
+                ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(ItemsOfPrivateList.this, android.R.layout.simple_list_item_1, all_items_list));
+                item_display.setAdapter(adapter1);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
@@ -91,4 +95,3 @@ public class ItemsOfPrivateList extends AppCompatActivity {
             }
         });
     }}
-
