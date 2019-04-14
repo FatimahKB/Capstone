@@ -9,5 +9,6 @@
         <item>t</item>
         <item>w</item>
     </string-array>
+    <string name="underlined_text"><u>Choose lists</u></string>
 
 </resources>

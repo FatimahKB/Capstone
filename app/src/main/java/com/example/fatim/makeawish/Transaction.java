@@ -54,6 +54,7 @@ public class Transaction extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final Float amount = sharedPreferences.getFloat("credit_amount", 0);
         final String user_name = sharedPreferences.getString("searched_user", "").trim();
+        final String ListType=sharedPreferences.getString("listType","").trim();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         notif_price=amount+"";
         creditamount.setText("Checkout Price : "+amount);
@@ -68,7 +69,7 @@ public class Transaction extends AppCompatActivity {
         }
 
         //
-        mDatabase.child("Users").child(user_name).child("item" + item_pos).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Users").child(user_name).child("Lists").child(ListType).child("item" + item_pos).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
@@ -87,9 +88,9 @@ public class Transaction extends AppCompatActivity {
                 if (validate()) {
                     double new_remaining_price = items.getRemaining_price() - amount;
                     if (new_remaining_price == 0) {
-                        mDatabase.child("Users").child(user_name).child("item" + item_pos).removeValue();
+                        mDatabase.child("Users").child(user_name).child("Lists").child(ListType).child("item" + item_pos).removeValue();
                     } else {
-                        mDatabase.child("Users").child(user_name).child("item" + item_pos).child("remaining_price").setValue(new_remaining_price);
+                        mDatabase.child("Users").child(user_name).child("Lists").child(ListType).child("item" + item_pos).child("remaining_price").setValue(new_remaining_price);
                     }
                     Toast.makeText(Transaction.this, "Transaction successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Transaction.this, Profile.class));

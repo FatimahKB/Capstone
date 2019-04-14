@@ -164,8 +164,8 @@ public class ToDo extends AppCompatActivity {
             View view = getLayoutInflater().inflate(R.layout.customlayout,null);
             ImageView mImageView = view.findViewById(R.id.imageView);
             TextView mTitle = view.findViewById(R.id.title);
-            Button mAccept= view.findViewById(R.id.button);
-            Button mDecline= view.findViewById(R.id.button2);
+            Button mAccept= view.findViewById(R.id.customlayout_accept_button);
+            Button mDecline= view.findViewById(R.id.customlayout_decline_button);
             friendRequestsArray=r.toArray();
             mAccept.setTag(position);
             mDecline.setTag(position);

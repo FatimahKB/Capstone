@@ -34,7 +34,7 @@ public class PublicListFragment extends Fragment {
     ArrayList<String> all_itemsImg_list = new ArrayList<>();
     FirebaseStorage   storage;
     StorageReference storageRef;
-    Button profile;
+  //  Button profile;
     Button add;
     ListView mlistView;
     //   private View view;
@@ -59,7 +59,7 @@ public class PublicListFragment extends Fragment {
 
 
         add=(Button)view.findViewById(R.id.public_add_button);
-        profile=(Button)view.findViewById(R.id.button2);
+      //  profile=(Button)view.findViewById(R.id.button2);
 
         //displaying the public list's items
         user = FirebaseAuth.getInstance().getCurrentUser();
