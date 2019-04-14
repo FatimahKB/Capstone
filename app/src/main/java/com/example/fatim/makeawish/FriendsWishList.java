@@ -210,14 +210,14 @@ public class FriendsWishList extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String selected_list=(item_display.getItemAtPosition(position)).toString();
-                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
                         Toast.makeText(FriendsWishList.this," and the searched list is "+selected_item, Toast.LENGTH_LONG).show();
-
+                        sharedPreferences= PreferenceManager.getDefaultSharedPreferences(FriendsWishList.this);
                         SharedPreferences.Editor e =sharedPreferences.edit();
                         e.putString("selected_private_list",selected_list);
-                        e.putLong("item_pos",position);
-                        e.putString("listType","private");
-                        e.commit();
+
+//                        e.putLong("item_pos",position);
+//                        e.putString("listType","private");
+//                        e.commit();
                         startActivity(new Intent(FriendsWishList.this,ItemsOfPrivateList.class));
                     }
                 });

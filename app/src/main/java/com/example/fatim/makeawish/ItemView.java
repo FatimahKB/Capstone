@@ -49,22 +49,22 @@ public class ItemView extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //final String item_name=sharedPreferences.getString("selected_item","").trim();
         final String ListType=sharedPreferences.getString("listType","").trim();
-        final String searched_username=sharedPreferences.getString("","").trim();
+        final String searched_username=sharedPreferences.getString("friends","").trim();
         final String private_name=sharedPreferences.getString("selected_private_list","").trim();
 
         Long item_pos = sharedPreferences.getLong("item_pos", 0);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final String listType = sharedPreferences.getString("listType", "").trim();
 
-        if(listType.equals("Public")){
-        mDatabase.child("Users").child(searched_username).child("Lists").child(ListType).child("Public").addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                // Get Post object and use the values to update the UI
-                if (dataSnapshot.exists()) {
-                    items = dataSnapshot.getValue(Item.class);
+//        if(listType.equals("Public")){
+//        mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                // Get Post object and use the values to update the UI
+//                if (dataSnapshot.exists()) {
+//                    items = dataSnapshot.getValue(Item.class);
                   //  textViewItemName.setText(item_clicked);
                     sharedPreferences.getString("clicked_item","").trim();
                     final String item_clicked = sharedPreferences.getString("clicked_item", "").trim();
@@ -73,54 +73,54 @@ public class ItemView extends AppCompatActivity {
                     final int item_quantity = sharedPreferences.getInt("quantity", 1);
 
                     textViewItemName.setText(item_clicked);
-                    textViewPrice.setText("Item Price : " + items.getPrice() + "");
-                    textViewQuantity.setText("Item Quantity : " + items.getQuantity() + "");
-                    remaining_price.setText("Remaining price : " + items.getRemaining_price() + "");
-                }
-            }
+                    textViewPrice.setText("Item Price : " + item_price);
+                    textViewQuantity.setText("Item Quantity : " +  item_quantity);
+                    remaining_price.setText("Remaining price : " + item_remaining_price);
+//                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        });}
-        else{
-            mDatabase.child("Users").child(searched_username).child("Lists").child(ListType).child("Private").child(private_name).addValueEventListener(new ValueEventListener() {
 
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+//        });}
+//        else{
+//            mDatabase.child("Users").child(searched_username).child("Lists").child(ListType).child("Private").child(private_name).addValueEventListener(new ValueEventListener() {
+//
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                    // Get Post object and use the values to update the UI
+//                    if (dataSnapshot.exists()) {
+//                        items = dataSnapshot.getValue(Item.class);
+//                        //  textViewItemName.setText(item_clicked);
+//                        sharedPreferences.getString("clicked_item","").trim();
+//                        final String item_clicked = sharedPreferences.getString("clicked_item", "").trim();
+//                        final String item_price = sharedPreferences.getString("price", "").trim();
+//                        final String item_remaining_price = sharedPreferences.getString("remaining_price", "").trim();
+//                        final int item_quantity = sharedPreferences.getInt("quantity", 1);
+//                        textViewItemName.setText(item_clicked);
+//                        textViewPrice.setText("Item Price : " + item_price);
+//                        textViewQuantity.setText("Item Quantity : " + item_quantity);
+//                        remaining_price.setText("Remaining price : " +item_remaining_price);
+//                    }
+//                }
 
-                    // Get Post object and use the values to update the UI
-                    if (dataSnapshot.exists()) {
-                        items = dataSnapshot.getValue(Item.class);
-                        //  textViewItemName.setText(item_clicked);
-                        sharedPreferences.getString("clicked_item","").trim();
-                        final String item_clicked = sharedPreferences.getString("clicked_item", "").trim();
-                        final String item_price = sharedPreferences.getString("price", "").trim();
-                        final String item_remaining_price = sharedPreferences.getString("remaining_price", "").trim();
-                        final int item_quantity = sharedPreferences.getInt("quantity", 1);
-                        textViewItemName.setText(item_clicked);
-                        textViewPrice.setText("Item Price : " + item_price);
-                        textViewQuantity.setText("Item Quantity : " + item_quantity);
-                        remaining_price.setText("Remaining price : " +item_remaining_price);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
-                    // ...
-                }
-            });
-        }
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    // Getting Post failed, log a message
+//                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+//                    // ...
+//                }
+//            });
+//
 
         btnPitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Double.parseDouble(editTextPitch.getText().toString())>items.getRemaining_price()){
+                if(Double.parseDouble(editTextPitch.getText().toString())>Double.parseDouble(item_remaining_price)){
                     Toast.makeText(ItemView.this,"Pitch in amount should be less than or equal to the remaining price", Toast.LENGTH_SHORT).show();
                 }else{
 
@@ -135,20 +135,23 @@ public class ItemView extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(items.getRemaining_price()!=items.getPrice())
+//                if(items.getPrice()==null){
+//                    Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
+//
+//                }
+                if(Double.parseDouble(item_remaining_price)==Double.parseDouble(item_price))
                 {
-                    Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
+//                  Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ItemView.this, Buying.class));
                 }
                 else {
-                    SharedPreferences.Editor e =sharedPreferences.edit();
-                    e.putFloat("credit_amount",(float)(items.getPrice()));
-                    e.commit();
-                    startActivity(new Intent(ItemView.this, Buying.class));
+                    Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 }
+
 
 
 

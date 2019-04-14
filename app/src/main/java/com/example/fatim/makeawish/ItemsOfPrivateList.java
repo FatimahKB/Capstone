@@ -86,10 +86,45 @@ public class ItemsOfPrivateList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected_item  =(item_display.getItemAtPosition(position)).toString();
+//                sharedPreferences= PreferenceManager.getDefaultSharedPreferences(ItemsOfPrivateList.this);
+//                SharedPreferences.Editor e =sharedPreferences.edit();
+//                e.putString("clicked_item",selected_item);
+//                e.putLong("item_pos",position);
+//                e.commit();
                 sharedPreferences= PreferenceManager.getDefaultSharedPreferences(ItemsOfPrivateList.this);
                 SharedPreferences.Editor e =sharedPreferences.edit();
-                e.putString("clicked_item",selected_item);
+                final String selected_private_list=sharedPreferences.getString("selected_private_list","").trim();
+                mDatabase.child("Users").child(searched_username).child("Lists").child("Private").child(selected_private_list).addValueEventListener( new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get Post object and use the values to update the UI
+                        for (DataSnapshot n : dataSnapshot.getChildren()) {
+                            if (n.getKey().equals("name") || n.getKey().equals("expiration") )
+                                continue;
+                            Item item = n.getValue(Item.class);
+                            if (item.getName().equals(selected_item)){
+                                sharedPreferences= PreferenceManager.getDefaultSharedPreferences(ItemsOfPrivateList.this);
+                                SharedPreferences.Editor e =sharedPreferences.edit();
+                                e.putString("clicked_item",selected_item);
+                                e.putString("price",item.getPrice()+"");
+                                e.putInt("quantity",item.getQuantity());
+                                e.putString("remaining_price",item.getRemaining_price()+"");
+                                e.putString("listType","Public");
+                                e.commit();
+                            }
+
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                        // ...
+                    }
+                });
                 e.putLong("item_pos",position);
+                e.putString("listType","private");
                 e.commit();
                 startActivity(new Intent(ItemsOfPrivateList.this,ItemView.class));
             }
