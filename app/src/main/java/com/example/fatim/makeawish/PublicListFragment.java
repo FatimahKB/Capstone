@@ -7,13 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +38,9 @@ public class PublicListFragment extends Fragment {
     Button add;
     ListView mlistView;
     //   private View view;
+    TextView friendsNumberText;
+    String friends;
+    int friendsNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class PublicListFragment extends Fragment {
     //    items_list = (ListView) view.findViewById(R.id.Profile_publicItems_ListView);
 //
         storage= FirebaseStorage.getInstance();
+        friendsNumberText= (TextView) view.findViewById(R.id.PublicLayout_FriendsNumbers_TextView);
 
 
 
@@ -56,7 +58,7 @@ public class PublicListFragment extends Fragment {
         mlistView.setAdapter(customAdapter);
 
 
-        add=(Button)view.findViewById(R.id.profile_add_button);
+        add=(Button)view.findViewById(R.id.public_add_button);
         profile=(Button)view.findViewById(R.id.button2);
 
         //displaying the public list's items
@@ -97,6 +99,31 @@ public class PublicListFragment extends Fragment {
 
             }
         });
+        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                friends=dataSnapshot.getValue(String.class);
+                for(int i=0;i<friends.length();i++){
+                    if(friends.charAt(i)== ','){
+                        friendsNumber++;
+                    }
+                }
+                friendsNumberText.setText(friendsNumber+1+" friends");
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+        friendsNumberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),displayFriends.class));
+            }
+        });
         return view;
     }
     class CustomAdapter extends BaseAdapter {
@@ -133,7 +160,9 @@ public class PublicListFragment extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     mImageView.setImageBitmap(bitmap);
         }
-    }        );    return view;
+    }        );
+
+            return view;
 
         }
     }

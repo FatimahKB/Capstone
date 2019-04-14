@@ -25,71 +25,12 @@
         android:layout_width="298dp"
         android:layout_height="58dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/to_do_picture_imageView"
         android:layout_marginBottom="198dp"
         android:text="FRIEND REQUESTS"
         android:textColor="@color/blue"
         android:textSize="31sp"
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="263dp" />
-
-    <ImageView
-        android:id="@+id/to_do_picture_imageView"
-        android:layout_width="94dp"
-        android:layout_height="156dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="66dp"
-        app:srcCompat="@drawable/download" />
-
-    <TextView
-        android:id="@+id/to_do_name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/to_do_item_textView"
-        android:layout_marginTop="98dp"
-        android:text="Fatimah" />
-
-    <TextView
-        android:id="@+id/to_do_ID_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/to_do_name_textView"
-        android:layout_marginTop="136dp"
-        android:text="101102" />
-
-    <TextView
-        android:id="@+id/to_do_item_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/to_do_cancel_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="108dp"
-        android:text="Range Rover" />
-
-    <Button
-        android:id="@+id/to_do_buy_button"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/to_do_name_textView"
-        android:layout_marginStart="-3dp"
-        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
-        android:background="@drawable/roundedbutton"
-        android:text="buy"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
-
-    <Button
-        android:id="@+id/to_do_cancel_button"
-        android:layout_width="76dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/to_do_ID_textView"
-        android:layout_toEndOf="@+id/to_do_upcomingEvents_textView"
-        android:background="@drawable/roundedbutton"
-        android:text="Cancel"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"
@@ -120,34 +61,12 @@
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/seperator" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/to_do_name_textView"
-        android:layout_toEndOf="@+id/to_do_picture_imageView"
-        android:text="Giftee:"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/to_do_ID_textView"
-        android:layout_toEndOf="@+id/to_do_picture_imageView"
-        android:text="ID:"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/to_do_item_textView"
-        android:layout_toEndOf="@+id/to_do_picture_imageView"
-        android:text="Gift:"
-        android:textSize="18sp" />
+    <ListView
+        android:id="@+id/todo_reminders_list"
+        android:layout_width="match_parent"
+        android:layout_height="193dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/to_do_upcomingEvents_textView" />
 
 
 </RelativeLayout>

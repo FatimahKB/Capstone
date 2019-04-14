@@ -28,38 +28,46 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+
 public class ToDo extends AppCompatActivity {
     ListView mlistView;
-    DatabaseReference mDatabase;
-    int [] images = {R.drawable.download,R.drawable.add,R.drawable.bluecursor};
-    ArrayList<String> Names = new ArrayList<>();
-    String username[];
+    ListView reminders;
+
     FirebaseUser user;
+    DatabaseReference mDatabase;
+
+    ArrayList<String> friendRequestsList = new ArrayList<>();
+    ArrayList<Gift> itemsToBuyList = new ArrayList<Gift>();
+
+    Object friendRequestsArray[];
+    Gift g;
+
+    String username[];
     String friends="";
-    TextView mTitle;
-    Object names1[];
-
-
+    Gift gift;
+    Gift gift1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do);
+
+        //Controls initialization
+        mlistView = findViewById(R.id.listView);
+        reminders = findViewById(R.id.todo_reminders_list);
+
+        //databse and user initialization
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        Button to_do_buy_button = findViewById(R.id.to_do_buy_button);
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         username=user.getEmail().split("@");
-        mlistView = findViewById(R.id.listView);
 
+        //Friend requests retrieval
         mDatabase.child("Users").child(username[0]).child("friendRequests").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    Names.add(n.getValue().toString());
+                    friendRequestsList.add(n.getValue().toString());
                 }
-                CustomAdapter customAdapter = new CustomAdapter(Names);
-                mlistView.setAdapter(customAdapter);
+                mlistView.setAdapter(new CustomAdapter(friendRequestsList));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -67,30 +75,28 @@ public class ToDo extends AppCompatActivity {
                 Log.w(null, "loadPost:onCancelled", databaseError.toException());
                 // ...
             }
-
-
         });
 
-        Button to_do_cancel_button = findViewById(R.id.to_do_cancel_button);
-
-
-        to_do_buy_button.setOnClickListener(new View.OnClickListener() {
+        //Items to buy retrieval
+        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addValueEventListener( new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ToDo.this, ToDo.class));
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    Gift gift = n.getValue(Gift.class);
+                    itemsToBuyList.add(gift);
+                }
+                reminders.setAdapter(new CustomAdapter1(itemsToBuyList));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
             }
         });
 
-
-        to_do_cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ToDo.this, ToDo.class));
-            }
-        });
-
-
-//Navigation bar
+        //Navigation bar
         BottomNavigationView bottom = findViewById(R.id.navigationView);
 
         bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -117,7 +123,7 @@ public class ToDo extends AppCompatActivity {
     }
 
     class CustomAdapter extends BaseAdapter {
-    ArrayList<String> r=new ArrayList<>();
+        ArrayList<String> r=new ArrayList<>();
 
         CustomAdapter(ArrayList r){
             this.r=r;
@@ -125,7 +131,7 @@ public class ToDo extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return images.length;
+            return r.size();
         }
 
         @Override
@@ -142,17 +148,63 @@ public class ToDo extends AppCompatActivity {
         public View getView( int position, View convertView, ViewGroup parent) {
             View view = getLayoutInflater().inflate(R.layout.customlayout,null);
             ImageView mImageView = view.findViewById(R.id.imageView);
-            mTitle = view.findViewById(R.id.title);
-            names1=r.toArray();
+            TextView mTitle = view.findViewById(R.id.title);
             Button mAccept= view.findViewById(R.id.button);
+            Button mDecline= view.findViewById(R.id.button2);
+
+            friendRequestsArray=r.toArray();
             mAccept.setTag(position);
-            mImageView.setImageResource(images[position]);
-            mTitle.setText(names1[position].toString());
+            mDecline.setTag(position);
+            mImageView.setImageResource(R.drawable.download);
+            mTitle.setText(friendRequestsArray[position].toString());
             return view;
         }
     }
-    public void myClickHandler(View v){
 
+    class CustomAdapter1 extends BaseAdapter {
+        ArrayList<Gift> gifts=new ArrayList<Gift>();
+
+        CustomAdapter1(ArrayList<Gift> gifts){
+            this.gifts=gifts;
+        }
+
+        @Override
+        public int getCount() {
+            return gifts.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView( int position, View convertView, ViewGroup parent) {
+            View view = getLayoutInflater().inflate(R.layout.customlayout1,null);
+            ImageView image = view.findViewById(R.id.tobuy_giftee_image);
+            Button buy= view.findViewById(R.id.tobuy_buy_button);
+            Button cancel= view.findViewById(R.id.tobuy_cancel_button);
+            TextView giftee = view.findViewById(R.id.tobuy_giftee_name);
+            TextView gift = view.findViewById(R.id.tobuy_giftname_text);
+            TextView price = view.findViewById(R.id.tobuy_giftprice_text);
+            buy.setTag(position);
+            cancel.setTag(position);
+
+            g= gifts.get(position);
+            giftee.setText("Giftee: "+g.getUsername());
+            gift.setText("Gift: "+g.getGiftname());
+            price.setText("price: "+g.getPrice());
+            image.setImageResource(R.drawable.add);
+            return view;
+        }
+    }
+
+    public void accept(View v){
         final int position=(Integer)v.getTag();
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
@@ -160,9 +212,9 @@ public class ToDo extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     Log.d("hi",friends+" ");
                     friends = dataSnapshot.getValue(String.class);
-                    mDatabase.child("Users").child(username[0]).child("friends").setValue(friends+", "+names1[position]);
+                    mDatabase.child("Users").child(username[0]).child("friends").setValue(friends+", "+friendRequestsArray[position]);
                 }else{
-                    mDatabase.child("Users").child(username[0]).child("friends").setValue(names1[position]);
+                    mDatabase.child("Users").child(username[0]).child("friends").setValue(friendRequestsArray[position]);
                 }
             }
             @Override
@@ -177,7 +229,7 @@ public class ToDo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
-                    if (n.getValue().equals(names1[position])) {
+                    if (n.getValue().equals(friendRequestsArray[position])) {
                         mDatabase.child("Users").child(username[0]).child("friendRequests").child(n.getKey()).removeValue();
                     }
                 }
@@ -190,6 +242,102 @@ public class ToDo extends AppCompatActivity {
             }
         });
     }
+
+    public void decline(View v){
+
+        final int position=(Integer)v.getTag();
+        mDatabase.child("Users").child(username[0]).child("friendRequests").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    if (n.getValue().equals(friendRequestsArray[position])) {
+                        mDatabase.child("Users").child(username[0]).child("friendRequests").child(n.getKey()).removeValue();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+    }
+
+    public void buy(View v){
+        final int position=(Integer)v.getTag();
+        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    Gift gift = n.getValue(Gift.class);
+                    Gift gift1=itemsToBuyList.get(position);
+                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getPrice()==gift1.getPrice())
+                        mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+        startActivity(new Intent(ToDo.this,Buying.class));
+    }
+
+    public void cancel(View v){
+        final int position=(Integer)v.getTag();
+        mDatabase.child("Users").child(username[0]).child("itemsToBuy").addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot n : dataSnapshot.getChildren()) {
+                    gift = n.getValue(Gift.class);
+                    gift1=itemsToBuyList.get(position);
+                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getWishlist().equals(gift1.getWishlist()))
+                    {
+                        mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+
+                        if(gift1.getWishlist().equals("Public")){
+                            mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice(),"gs://makeawish-3b12e.appspot.com/placeholder.png");
+                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                    // ...
+                                }
+                            });
+
+                        }else{
+                            mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice(),"gs://makeawish-3b12e.appspot.com/placeholder.png");
+                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Getting Post failed, log a message
+                                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                                    // ...
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+    }
 }
-
-

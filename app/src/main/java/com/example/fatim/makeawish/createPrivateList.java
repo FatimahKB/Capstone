@@ -60,7 +60,9 @@ public class createPrivateList extends Activity {
                 String username []=user.getEmail().split("@");
                 date=c.get(Calendar.YEAR)+"/"+ c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH);
                 mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(name.getText().toString().trim()).child("expiration").setValue(date);
+                mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(name.getText().toString().trim()).child("name").setValue(name.getText().toString().trim());
                 Toast.makeText(createPrivateList.this, "List has been successfully created", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(createPrivateList.this, Search.class));
             }
         });
 

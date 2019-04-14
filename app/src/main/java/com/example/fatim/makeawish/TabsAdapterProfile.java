@@ -19,7 +19,6 @@ public class TabsAdapterProfile extends FragmentStatePagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 1:
-             //   PrivateListsLayout privateLists = new PrivateListsLayout();
                 PrivateListsFragment privateLists = new PrivateListsFragment();
                 return privateLists;
             case 0:

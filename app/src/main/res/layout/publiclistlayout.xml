@@ -89,24 +89,21 @@
         android:layout_marginTop="206dp" />
 
     <Button
-        android:id="@+id/profile_add_button"
+        android:id="@+id/public_add_button"
         android:layout_width="54dp"
         android:layout_height="56dp"
         android:layout_alignBottom="@+id/Profile_publicItems_ListView"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="15dp"
         android:background="@drawable/add" />
 
-
-    <Button
-        android:id="@+id/button2"
+    <TextView
+        android:id="@+id/PublicLayout_FriendsNumbers_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="617dp"
-        android:text="test" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:text="TextView" />
+
 
 </RelativeLayout>
