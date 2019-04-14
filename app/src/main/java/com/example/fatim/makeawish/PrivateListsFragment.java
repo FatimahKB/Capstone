@@ -78,13 +78,15 @@ public class PrivateListsFragment extends Fragment{
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                friends=dataSnapshot.getValue(String.class);
-                for(int i=0;i<friends.length();i++){
-                    if(friends.charAt(i)== ','){
-                        friendsNumber++;
+                if (dataSnapshot.exists()) {
+                    friends = dataSnapshot.getValue(String.class);
+                    for (int i = 0; i < friends.length(); i++) {
+                        if (friends.charAt(i) == ',') {
+                            friendsNumber++;
+                        }
                     }
+                    friendsNumberText.setText(friendsNumber + 1 + " friends");
                 }
-                friendsNumberText.setText(friendsNumber+1+" friends");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -106,7 +108,7 @@ public class PrivateListsFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String s = privateLists.getItemAtPosition(position).toString();
 //                t = (TextView) getActivity().findViewById(R.id.textView);
-                t.setText("Hey there" + s);
+//                t.setText("Hey there" + s);
             }
         });
 

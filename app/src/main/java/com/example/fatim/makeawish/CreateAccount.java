@@ -112,6 +112,7 @@ public class CreateAccount extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //add to database
+                                username[0]= username[0].toLowerCase();
                                 user = new User (email,password,DOB);
                                 mDatabase.child("Users").child(username[0]).setValue(user);
                                 uploadImage();

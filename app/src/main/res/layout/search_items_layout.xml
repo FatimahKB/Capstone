@@ -10,6 +10,8 @@
         android:layout_marginTop="54dp"
         android:ems="10"
         android:hint="Search"
+        android:textCursorDrawable="@drawable/bluecursor"
+
         android:inputType="text" />
 
     <Button

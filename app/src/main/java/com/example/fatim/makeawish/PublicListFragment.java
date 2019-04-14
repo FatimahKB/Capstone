@@ -102,6 +102,7 @@ public class PublicListFragment extends Fragment {
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
                 friends=dataSnapshot.getValue(String.class);
                 for(int i=0;i<friends.length();i++){
                     if(friends.charAt(i)== ','){
@@ -109,6 +110,7 @@ public class PublicListFragment extends Fragment {
                     }
                 }
                 friendsNumberText.setText(friendsNumber+1+" friends");
+            }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
