@@ -154,7 +154,7 @@ public class ItemView extends AppCompatActivity {
                 Log.d("hi",ListType);
                 if(ListType.equals("Public")){
                     //add the path
-                    Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" , item_quantity);
+                    Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" ,item_quantity);
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g);
 
                 }else{
