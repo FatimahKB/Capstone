@@ -71,8 +71,11 @@ public class FriendsWishList extends AppCompatActivity {
         mDatabase.child("Users").child(username).child("friends").addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String all_friends=dataSnapshot.getValue(String.class);//.toString();
-                friend_list =new ArrayList<String>(Arrays.asList(all_friends.split(",")));
+                if(dataSnapshot.exists())
+                {
+                    String all_friends=dataSnapshot.getValue(String.class);//.toString();
+                    friend_list =new ArrayList<String>(Arrays.asList(all_friends.split(",")));
+                }
                // Toast.makeText(FriendsWishList.this,"friend : the searched user is :"+friend_list.get(0), Toast.LENGTH_LONG).show();
 
             }
