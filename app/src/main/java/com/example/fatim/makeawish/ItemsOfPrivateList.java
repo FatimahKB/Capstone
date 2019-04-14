@@ -109,7 +109,6 @@ public class ItemsOfPrivateList extends AppCompatActivity {
                                 e.putString("price",item.getPrice()+"");
                                 e.putInt("quantity",item.getQuantity());
                                 e.putString("remaining_price",item.getRemaining_price()+"");
-                                e.putString("listType","Public");
                                 e.commit();
                             }
 
@@ -124,7 +123,7 @@ public class ItemsOfPrivateList extends AppCompatActivity {
                     }
                 });
                 e.putLong("item_pos",position);
-                e.putString("listType","private");
+//                e.putString("listType","private");
                 e.commit();
                 startActivity(new Intent(ItemsOfPrivateList.this,ItemView.class));
             }

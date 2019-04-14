@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,7 @@ public class ItemView extends AppCompatActivity {
     TextView textViewPrice;
     TextView textViewQuantity;
 
-
+    String username [];
     TextView remaining_price;
     EditText editTextPitch;
     Button btnPitch;
@@ -54,8 +56,9 @@ public class ItemView extends AppCompatActivity {
 
         Long item_pos = sharedPreferences.getLong("item_pos", 0);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        final String listType = sharedPreferences.getString("listType", "").trim();
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        username =user.getEmail().split("@");
 //        if(listType.equals("Public")){
 //        mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
 //
@@ -147,6 +150,20 @@ public class ItemView extends AppCompatActivity {
                 else {
                     Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
                 }
+                Log.d("hi",private_name);
+                Log.d("hi",ListType);
+                if(ListType.equals("Public")){
+                    //add the path
+                    Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" , item_quantity);
+                    mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g);
+
+                }else{
+                    Gift g1 = new Gift(item_clicked, Double.parseDouble(item_price), searched_username,private_name, item_quantity);
+                    mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g1);
+                }
+
+
+
             }
         });
     }
