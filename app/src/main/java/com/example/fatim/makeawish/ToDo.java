@@ -2,6 +2,8 @@ package com.example.fatim.makeawish;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -46,6 +51,9 @@ public class ToDo extends AppCompatActivity {
     String friends="";
     Gift gift;
     Gift gift1;
+    FirebaseStorage storage;
+
+    ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,8 @@ public class ToDo extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         username=user.getEmail().split("@");
+
+
 
         //Friend requests retrieval
         mDatabase.child("Users").child(username[0]).child("friendRequests").addValueEventListener( new ValueEventListener() {
@@ -151,12 +161,25 @@ public class ToDo extends AppCompatActivity {
             TextView mTitle = view.findViewById(R.id.title);
             Button mAccept= view.findViewById(R.id.button);
             Button mDecline= view.findViewById(R.id.button2);
-
             friendRequestsArray=r.toArray();
             mAccept.setTag(position);
             mDecline.setTag(position);
-            mImageView.setImageResource(R.drawable.download);
             mTitle.setText(friendRequestsArray[position].toString());
+            //////////////////////////////////////////////////
+            String path ="gs://makeawish-3b12e.appspot.com/"+"profilepictures/"+friendRequestsArray[position].toString();
+            storage=FirebaseStorage.getInstance();
+            final StorageReference storageRef = storage.getReferenceFromUrl(path);
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    image.setImageBitmap(bitmap);
+//                        img.setWidth(50);
+//                        img.setMaxHeight(50);
+                }
+            });
             return view;
         }
     }
@@ -186,7 +209,7 @@ public class ToDo extends AppCompatActivity {
         @Override
         public View getView( int position, View convertView, ViewGroup parent) {
             View view = getLayoutInflater().inflate(R.layout.customlayout1,null);
-            ImageView image = view.findViewById(R.id.tobuy_giftee_image);
+            image = view.findViewById(R.id.tobuy_giftee_image);
             Button buy= view.findViewById(R.id.tobuy_buy_button);
             Button cancel= view.findViewById(R.id.tobuy_cancel_button);
             TextView giftee = view.findViewById(R.id.tobuy_giftee_name);
@@ -199,7 +222,20 @@ public class ToDo extends AppCompatActivity {
             giftee.setText("Giftee: "+g.getUsername());
             gift.setText("Gift: "+g.getGiftname());
             price.setText("price: "+g.getPrice());
-            image.setImageResource(R.drawable.add);
+            storage=FirebaseStorage.getInstance();
+            final StorageReference storageRef = storage.getReferenceFromUrl(g.getImgpath());
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    image.setImageBitmap(bitmap);
+//                        img.setWidth(50);
+//                        img.setMaxHeight(50);
+                }
+            });
+
             return view;
         }
     }
@@ -210,7 +246,6 @@ public class ToDo extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Log.d("hi",friends+" ");
                     friends = dataSnapshot.getValue(String.class);
                     mDatabase.child("Users").child(username[0]).child("friends").setValue(friends+", "+friendRequestsArray[position]);
                 }else{
