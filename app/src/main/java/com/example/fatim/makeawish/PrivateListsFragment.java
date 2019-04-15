@@ -1,5 +1,7 @@
 package com.example.fatim.makeawish;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment; import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +39,7 @@ public class PrivateListsFragment extends Fragment{
     String friends;
     int friendsNumber;
     Button addPrivateList;
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
@@ -50,6 +53,7 @@ public class PrivateListsFragment extends Fragment{
         user = FirebaseAuth.getInstance().getCurrentUser();
         String username[] = user.getEmail().split("@");
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -88,10 +92,14 @@ public class PrivateListsFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String s = privateLists.getItemAtPosition(position).toString();
-//                t = (TextView) getActivity().findViewById(R.id.textView);
-//                t.setText("Hey there" + s);
+                SharedPreferences.Editor e =sharedPreferences.edit();
+                e.putString("selected_private_list",s);
+                e.putString("listType","Private");
+                e.commit();
+                startActivity(new Intent ( getActivity(),ItemsOfPrivateList.class));
             }
         });
+
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

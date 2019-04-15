@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".users_item_view">
+
+<TextView
+    android:id="@+id/textViewItemName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="201dp"
+    android:text="Name"
+    android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Price"
+        android:textSize="24sp" />
+
+<TextView
+    android:id="@+id/textViewQuantity"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="213dp"
+    android:text="Quantity"
+    android:textSize="24sp" />
+
+    <TextView
+    android:id="@+id/textView11"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="32dp"
+    android:text="Item Details"
+    android:textSize="45sp" />
+
+    <ImageView
+    android:id="@+id/item_details_image"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_above="@+id/textViewItemName"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="-201dp"
+    app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <Button
+        android:id="@+id/usersItems_deleteItem_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="112dp"
+        android:text="Delete" />
+</RelativeLayout>

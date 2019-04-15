@@ -43,6 +43,7 @@
         <activity android:name=".FriendsList" />
         <activity android:name=".FriendsWishList" />
         <activity android:name=".ItemView" />
+        <activity android:name=".users_item_view"></activity>
     </application>
 
 </manifest>

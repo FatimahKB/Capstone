@@ -171,9 +171,33 @@ public class ItemView extends AppCompatActivity {
                 else {
                     Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("hi",private_name);
-                Log.d("hi",ListType);
+
                 if(ListType.equals("Public")){
+                    mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            // Get Post object and use the values to update the UI
+                            if (dataSnapshot.exists()) {
+                               for(DataSnapshot n: dataSnapshot.getChildren()){
+                                  Item t= n.getValue(Item.class);
+                                  if(t.getName().equals(item_clicked)&& t.getPrice()==Double.parseDouble(item_price) && t.getQuantity() == item_quantity){
+                                      mDatabase.child("Users").child(searched_username).child("Lists").child("Public").child(n.getKey()).removeValue();
+                                  }
+
+                               }
+
+                            }
+                        }
+
+                            @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                            // ...
+                        }
+                    });
                     //add the path
                     Gift g = new Gift(item_clicked,  Double.parseDouble(item_price), searched_username,"Public" ,item_quantity,"gs://makeawish-3b12e.appspot.com/placeholder.png");
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g);

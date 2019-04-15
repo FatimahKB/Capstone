@@ -56,12 +56,12 @@ public class Profile extends AppCompatActivity {
 //        friend = (Button)findViewById(R.id.friend1);
 //        add=(Button)findViewById(R.id.profile_add_button);
      //   friendsNumberText=(TextView)findViewById(R.id.Profile_FriendsNumber_TextView);
-        usernameText=(TextView)findViewById(R.id.profile_username_textView);
-        //displaying the public list's items
-        user= FirebaseAuth.getInstance().getCurrentUser();
-        String username []=user.getEmail().split("@");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        usernameText.setText(username[0]);
+//        usernameText=(TextView)findViewById(R.id.profile_username_textView);
+//        //displaying the public list's items
+//        user= FirebaseAuth.getInstance().getCurrentUser();
+//        String username []=user.getEmail().split("@");
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//        usernameText.setText(username[0]);
 
 //        mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
 //            @Override
@@ -85,24 +85,24 @@ public class Profile extends AppCompatActivity {
 //            }
 //        });
 //
-        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                friends=dataSnapshot.getValue(String.class);
-                for(int i=0;i<friends.length();i++){
-                    if(friends.charAt(i)== ','){
-                        friendsNumber++;
-                    }
-                }
+//        mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                friends=dataSnapshot.getValue(String.class);
+//                for(int i=0;i<friends.length();i++){
+//                    if(friends.charAt(i)== ','){
+//                        friendsNumber++;
+//                    }
+//                }
 //                friendsNumberText.setText(friendsNumber+1+" friends");
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        });
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+//        });
 //
 
 //
@@ -171,11 +171,12 @@ public class Profile extends AppCompatActivity {
                     default:
 
 
-
                 }
                 return false;
             }
         });
+
+
 
 
     }
