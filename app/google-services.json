@@ -31,6 +31,38 @@
           }
         },
         {
+          "client_id": "64848041570-9lf2fbeg88p25ck5ovpce17jpqrsrp1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "b8a2c8d292796bb7a71a49eb6153cc9407c8f622"
+          }
+        },
+        {
+          "client_id": "64848041570-84gvo08hrftst58rv524lqo4nn9jdhpq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "d3041df729d49b31a7cde1a4bd63d700744e8539"
+          }
+        },
+        {
+          "client_id": "64848041570-pdcul2i3334qgq4tulu6gaj7gv3nhtp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "09603c88e0972894dfb74dadac59b7dc1a8c73ad"
+          }
+        },
+        {
+          "client_id": "64848041570-knvk6k798bi60955brtnjaejv13u9i4c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fatim.makeawish",
+            "certificate_hash": "6fd3d0422fb52df3d220d10db961cb29d51b17c6"
+          }
+        },
+        {
           "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -41,20 +73,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "64848041570-om96gtgslm9q1nssmbhf6437dhahkpbg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

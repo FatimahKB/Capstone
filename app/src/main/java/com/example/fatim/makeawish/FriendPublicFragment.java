@@ -76,27 +76,30 @@ public class FriendPublicFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected_item = (item_display.getItemAtPosition(position)).toString();
                 mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get Post object and use the values to update the UI
-                        for (DataSnapshot n : dataSnapshot.getChildren()) {
-                            if (n.getKey().equals("name"))
-                                continue;
-                            Item item = n.getValue(Item.class);
-                            if (item.getName().equals(selected_item)) {
-                                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                                SharedPreferences.Editor e = sharedPreferences.edit();
-                                e.putString("clicked_item", selected_item);
-                                e.putString("price", item.getPrice() + "");
-                                e.putInt("quantity", item.getQuantity());
-                                e.putString("remaining_price", item.getRemaining_price() + "");
-                                e.putString("listType", "Public");
-                                e.commit();
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get Post object and use the values to update the UI
+                            for (DataSnapshot n : dataSnapshot.getChildren()) {
+                                if (n.getKey().equals("name"))
+                                    continue;
+                                Item item = n.getValue(Item.class);
+                                if (item.getName().equals(selected_item)) {
+                                    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                                    SharedPreferences.Editor e = sharedPreferences.edit();
+                                    e.putString("clicked_item", selected_item);
+                                    e.putString("price", item.getPrice() + "");
+                                    e.putInt("quantity", item.getQuantity());
+                                    e.putString("remaining_price", item.getRemaining_price() + "");
+                                    e.putString("listType", "Public");
+                                    if(item.imgPath!=null) {
+                                        e.putString("path", item.imgPath);
+                                    }
+                                    e.commit();
+                                }
+
+
                             }
-
-
                         }
-                    }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

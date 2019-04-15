@@ -67,12 +67,6 @@ public class PublicListFragment extends Fragment {
 //                    if (n.getKey().equals("username") || n.getKey().equals("email"))
 //                        continue;
                     Item item = n.getValue(Item.class);
-//                    SharedPreferences.Editor e =sharedPreferences.edit();
-//                    if(item.imgPath!=null) {
-//                        e.putString("path", item.imgPath);
-//                        Toast.makeText(getContext(),""+item.imgPath,Toast.LENGTH_LONG).show();
-//                        e.commit();
-//                    }
                     all_items_list.add(item.getName());
                     ArrayAdapter<String> adapter1 = (new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, all_items_list));
                     items_list.setAdapter(adapter1);
@@ -101,16 +95,16 @@ public class PublicListFragment extends Fragment {
         items_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("hi","Im here");
+
                 selected_item = (items_list.getItemAtPosition(position)).toString();
                 mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
                         for (DataSnapshot n : dataSnapshot.getChildren()) {
-                            if (n.getKey().equals("name"))
-                                continue;
                             Item item = n.getValue(Item.class);
                             if (item.getName().equals(selected_item)) {
+                                Log.d("hi","I'm here");
                                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                                 SharedPreferences.Editor e = sharedPreferences.edit();
                                 e.putString("clicked_item", selected_item);
@@ -118,8 +112,10 @@ public class PublicListFragment extends Fragment {
                                 e.putInt("quantity", item.getQuantity());
                                 e.putString("remaining_price", item.getRemaining_price() + "");
                                 e.putString("listType","Public");
+                                if(item.imgPath!=null) {
+                                    e.putString("path", item.imgPath);
+                                }
                                 e.commit();
-                                startActivity(new Intent(getActivity(), users_item_view.class));
                             }
                         }
                     }
@@ -130,6 +126,8 @@ public class PublicListFragment extends Fragment {
                         // ...
                     }
                 });
+                startActivity(new Intent(getActivity(), users_item_view.class));
+
             }});
 
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {

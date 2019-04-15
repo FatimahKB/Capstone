@@ -109,6 +109,9 @@ public class ItemsOfPrivateList extends AppCompatActivity {
                                 e.putString("price",item.getPrice()+"");
                                 e.putInt("quantity",item.getQuantity());
                                 e.putString("remaining_price",item.getRemaining_price()+"");
+                                if(item.imgPath!=null) {
+                                    e.putString("path", item.imgPath);
+                                }
                                 e.commit();
                             }
 

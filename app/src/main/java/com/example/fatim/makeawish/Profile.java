@@ -56,12 +56,12 @@ public class Profile extends AppCompatActivity {
 //        friend = (Button)findViewById(R.id.friend1);
 //        add=(Button)findViewById(R.id.profile_add_button);
      //   friendsNumberText=(TextView)findViewById(R.id.Profile_FriendsNumber_TextView);
-//        usernameText=(TextView)findViewById(R.id.profile_username_textView);
+        usernameText=(TextView)findViewById(R.id.profile_username_textView);
 //        //displaying the public list's items
-//        user= FirebaseAuth.getInstance().getCurrentUser();
-//        String username []=user.getEmail().split("@");
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        String username []=user.getEmail().split("@");
 //        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        usernameText.setText(username[0]);
+        usernameText.setText(username[0]);
 
 //        mDatabase.child("Users").child(username[0]).child("Lists").child("Public").addValueEventListener( new ValueEventListener() {
 //            @Override
