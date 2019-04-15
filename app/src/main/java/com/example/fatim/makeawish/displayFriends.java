@@ -59,7 +59,7 @@ public class displayFriends extends AppCompatActivity {
                 friends1=(mlistView.getItemAtPosition(position)).toString();
                 sharedPreferences= PreferenceManager.getDefaultSharedPreferences(displayFriends.this);
                 SharedPreferences.Editor e =sharedPreferences.edit();
-                e.putString("friends",friends1);
+                e.putString("chosenUser",friends1);
                 e.commit();
                 startActivity(new Intent(displayFriends.this,FriendsWishList.class));
             }

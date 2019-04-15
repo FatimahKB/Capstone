@@ -100,7 +100,7 @@ final View view = inflater.inflate(R.layout.search_users_layout, viewGroup, fals
                 String selected_user=(search_list.getItemAtPosition(position)).toString();
                 Toast.makeText(getContext(),"toast 1 the searched user is :"+selected_user,Toast.LENGTH_LONG).show();
                 SharedPreferences.Editor e =sharedPreferences.edit();
-                e.putString("searched_user",selected_user);
+                e.putString("chosenUser",selected_user);
                 e.commit();
                 Toast.makeText(getContext(),"toast 2 the searched user is :"+selected_user,Toast.LENGTH_LONG).show();
 

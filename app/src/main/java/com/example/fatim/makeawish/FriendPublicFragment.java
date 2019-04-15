@@ -38,7 +38,7 @@ public class FriendPublicFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         item_display= (ListView)view.findViewById(R.id.Friend_Public_ListView);
 
-        final String searched_username=sharedPreferences.getString("friends","").trim();
+        final String searched_username=sharedPreferences.getString("chosenUser","").trim();
         Log.d("hi",""+searched_username);
         mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
             @Override
