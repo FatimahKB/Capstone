@@ -97,5 +97,12 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent (Profile.this, PrivateWishlists.class));
             }
         });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent (Profile.this, MapsActivity.class));
+            }
+        });
     }
 }
