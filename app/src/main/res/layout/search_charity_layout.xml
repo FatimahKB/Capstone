@@ -3,6 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <EditText
+        android:id="@+id/search_chairty_searchBar_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:hint="Search"
+        android:textCursorDrawable="@drawable/bluecursor"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/charitySearchbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/roundedbutton"
+        android:text="Search"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
     <ListView
         android:id="@+id/searchcharity_result_listView"
         android:layout_width="match_parent"

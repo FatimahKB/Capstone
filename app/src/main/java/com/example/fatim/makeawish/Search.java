@@ -11,17 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -144,7 +138,7 @@ public class Search extends AppCompatActivity {
                     case R.id.navigation_search:
                         startActivity(new Intent(Search.this,Search.class));break;
                     case R.id.navigation_settings:
-                        startActivity(new Intent(Search.this,Settings.class));break;
+                        startActivity(new Intent(Search.this,Signout.class));break;
                     default:
 
 

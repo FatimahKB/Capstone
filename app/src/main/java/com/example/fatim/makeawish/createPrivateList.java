@@ -19,18 +19,20 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 public class createPrivateList extends Activity {
+    //controllers
     EditText name;
-//    Button expiration;
     Button create;
     String date;
+
+    //database
     DatabaseReference mDatabase;
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_private_list);
         name=(EditText)findViewById(R.id.createPrivate_label_editText);
-//        expiration= (Button)findViewById(R.id.createPrivate_expDate_textView);
         create = (Button)findViewById(R.id.createPrivate_Create_button);
 
         //create a datepicker
@@ -45,14 +47,7 @@ public class createPrivateList extends Activity {
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             }
         };
-
-//        expiration.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new DatePickerDialog(createPrivateList.this,d, c.get(Calendar.YEAR), c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
-//            }
-//        });
-
+//datePicker chosen
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +55,10 @@ public class createPrivateList extends Activity {
                 String username []=user.getEmail().split("@");
                 date=c.get(Calendar.YEAR)+"/"+ c.get(Calendar.MONTH)+"/"+c.get(Calendar.DAY_OF_MONTH);
                 mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(name.getText().toString().trim()).child("expiration").setValue(date);
+                mDatabase.child("Users").child(username[0]).child("Lists").child("Private").child(name.getText().toString().trim()).child("name").setValue(name.getText().toString().trim());
                 Toast.makeText(createPrivateList.this, "List has been successfully created", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(createPrivateList.this,Profile.class));
             }
         });
-
     }
-
 }

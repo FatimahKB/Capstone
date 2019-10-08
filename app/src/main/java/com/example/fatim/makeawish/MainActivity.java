@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    //Controllers
     EditText emailControl;
     EditText passwordControl;
     Button log_inControl;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialize controls
         emailControl=(EditText)findViewById(R.id.login_email_editText);
         passwordControl=(EditText)findViewById(R.id.login_password_editText);
+        passwordControl.setText("");
         log_inControl=(Button)findViewById(R.id.login_login_button);
         create_accountControl=(Button)findViewById(R.id.login_create_new_account_button);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(MainActivity.this,"Login Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(MainActivity.this,Profile.class));
-
+                                finish();
                             }
                             else{
                                 Toast.makeText(MainActivity.this,"Login failed", Toast.LENGTH_SHORT).show();
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
     //checking for empty fields
     public boolean validate(){

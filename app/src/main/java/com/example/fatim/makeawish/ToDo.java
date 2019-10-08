@@ -23,7 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ToDo extends AppCompatActivity {
     ListView mlistView;
@@ -48,10 +52,10 @@ public class ToDo extends AppCompatActivity {
         setContentView(R.layout.activity_to_do);
 
         //Controls initialization
-        mlistView = findViewById(R.id.todo_reminder_list);
-        reminders = findViewById(R.id.todo_requests_list);
+        mlistView = findViewById(R.id.todo_requests_list);
+        reminders = findViewById(R.id.todo_reminder_list);
 
-        //databse and user initialization
+        //database and user initialization
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         username=user.getEmail().split("@");
@@ -110,7 +114,7 @@ public class ToDo extends AppCompatActivity {
                     case R.id.navigation_search:
                         startActivity(new Intent(ToDo.this,Search.class));break;
                     case R.id.navigation_settings:
-                        startActivity(new Intent(ToDo.this,Settings.class));break;
+                        startActivity(new Intent(ToDo.this,Signout.class));break;
                     default:
                 }
                 return false;
@@ -273,8 +277,14 @@ public class ToDo extends AppCompatActivity {
                 for (DataSnapshot n : dataSnapshot.getChildren()) {
                     Gift gift = n.getValue(Gift.class);
                     Gift gift1=itemsToBuyList.get(position);
-                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getPrice()==gift1.getPrice())
+                    if (gift.getGiftname().equals(gift1.getGiftname()) && gift.getUsername().equals(gift1.getUsername()) && gift.getPrice()==gift1.getPrice()) {
+                        Date date = Calendar.getInstance().getTime();
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        String strDate = dateFormat.format(date);
+                        BoughtHistory bh = new BoughtHistory(gift.getUsername(), gift.getGiftname(), gift.getPrice(), strDate);
+                        mDatabase.child("Users").child(username[0]).child("History").push().setValue(bh);
                         mDatabase.child("Users").child(username[0]).child("itemsToBuy").child(n.getKey()).removeValue();
+                    }
                 }
             }
             @Override
@@ -303,7 +313,7 @@ public class ToDo extends AppCompatActivity {
                             mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice());
+                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice(),gift.getImgPath());
                                     mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Public").child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
                                 }
                                 @Override
@@ -318,8 +328,8 @@ public class ToDo extends AppCompatActivity {
                             mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice());
-                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).child("item"+(dataSnapshot.getChildrenCount()+1)).setValue(item);
+                                    Item item = new Item(gift1.getGiftname(), gift1.getQuantity(), gift1.getPrice(), gift1.getPrice(),gift1.getImgPath());
+                                    mDatabase.child("Users").child(gift1.getUsername()).child("Lists").child("Private").child(gift1.getWishlist()).push().setValue(item);
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {

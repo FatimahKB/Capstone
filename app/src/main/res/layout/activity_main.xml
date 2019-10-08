@@ -10,9 +10,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/login_email_editText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="-184dp"
         android:gravity="center"
         android:text="Login"
         android:textColor="@color/blue"
@@ -81,6 +81,14 @@
         android:text="Create a new account"
         android:textColor="@color/blue" />
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="100dp"
+        android:layout_height="101dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        app:srcCompat="@mipmap/logo" />
 
 
 </RelativeLayout>

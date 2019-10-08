@@ -89,15 +89,6 @@
         android:text="Remaning"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/customlayout_accept_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/remaining_price"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="13dp"
-        android:text="Button" />
-
     <ImageView
         android:id="@+id/item_details_image"
         android:layout_width="100dp"

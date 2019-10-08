@@ -21,6 +21,8 @@
         android:id="@+id/Private_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/private_wish_list_items_listview"
+        android:layout_alignParentEnd="true"
         android:text="Back " />
 
 </RelativeLayout>

@@ -27,44 +27,45 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class ItemView extends AppCompatActivity {
+
+    //controllers
     TextView textViewItemName;
     TextView textViewPrice;
     TextView textViewQuantity;
     ImageView img;
-
-
-    FirebaseStorage storage;
     String username [];
     TextView remaining_price;
     EditText editTextPitch;
     Button btnPitch;
     Button btnBuy;
+
+//Database
+    FirebaseStorage storage;
     SharedPreferences sharedPreferences;
     public DatabaseReference mDatabase;
     Item items;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_view2);
-///////////
+
+        //setting the controllers
         textViewItemName = (TextView) findViewById(R.id.textViewItemName);
         textViewPrice = (TextView) findViewById(R.id.textViewPrice);
         textViewQuantity = (TextView) findViewById(R.id.textViewQuantity);
         remaining_price = (TextView) findViewById(R.id.remaining_price);
         img=findViewById(R.id.item_details_image);
-
         editTextPitch = (EditText) findViewById(R.id.editTextPitch);
         btnPitch = (Button) findViewById(R.id.btnPitch);
         btnBuy = (Button) findViewById(R.id.btnBuy);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //final String item_name=sharedPreferences.getString("selected_item","").trim();
         final String ListType=sharedPreferences.getString("listType","").trim();
         final String searched_username=sharedPreferences.getString("friends","").trim();
         final String private_name=sharedPreferences.getString("selected_private_list","").trim();
-
         Long item_pos = sharedPreferences.getLong("item_pos", 0);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         username =user.getEmail().split("@");
         storage=FirebaseStorage.getInstance();
@@ -80,16 +81,7 @@ public class ItemView extends AppCompatActivity {
 //                        img.setMaxHeight(50);
             }
         });
-//        if(listType.equals("Public")){
-//        mDatabase.child("Users").child(searched_username).child("Lists").child("Public").addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                // Get Post object and use the values to update the UI
-//                if (dataSnapshot.exists()) {
-//                    items = dataSnapshot.getValue(Item.class);
-                  //  textViewItemName.setText(item_clicked);
+
                     sharedPreferences.getString("clicked_item","").trim();
                     final String item_clicked = sharedPreferences.getString("clicked_item", "").trim();
                     final String item_price = sharedPreferences.getString("price", "").trim();
@@ -100,47 +92,9 @@ public class ItemView extends AppCompatActivity {
                     textViewPrice.setText("Item Price : " + item_price);
                     textViewQuantity.setText("Item Quantity : " +  item_quantity);
                     remaining_price.setText("Remaining price : " + item_remaining_price);
-//                }
 
 
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(null, "loadPost:onCancelled", databaseError.toException());
-//                // ...
-//            }
-//        });}
-//        else{
-//            mDatabase.child("Users").child(searched_username).child("Lists").child(ListType).child("Private").child(private_name).addValueEventListener(new ValueEventListener() {
-//
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                    // Get Post object and use the values to update the UI
-//                    if (dataSnapshot.exists()) {
-//                        items = dataSnapshot.getValue(Item.class);
-//                        //  textViewItemName.setText(item_clicked);
-//                        sharedPreferences.getString("clicked_item","").trim();
-//                        final String item_clicked = sharedPreferences.getString("clicked_item", "").trim();
-//                        final String item_price = sharedPreferences.getString("price", "").trim();
-//                        final String item_remaining_price = sharedPreferences.getString("remaining_price", "").trim();
-//                        final int item_quantity = sharedPreferences.getInt("quantity", 1);
-//                        textViewItemName.setText(item_clicked);
-//                        textViewPrice.setText("Item Price : " + item_price);
-//                        textViewQuantity.setText("Item Quantity : " + item_quantity);
-//                        remaining_price.setText("Remaining price : " +item_remaining_price);
-//                    }
-//                }
-
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    // Getting Post failed, log a message
-//                    Log.w(null, "loadPost:onCancelled", databaseError.toException());
-//                    // ...
-//                }
-//            });
-//
-
+//pitching in for an item
         btnPitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,16 +110,14 @@ public class ItemView extends AppCompatActivity {
 
             }
         });
+
+        //buying an item
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(items.getPrice()==null){
-//                    Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
-//
-//                }
+              // startActivity(new Intent(ItemView.this,MapsActivity.class));
                 if(Double.parseDouble(item_remaining_price)==Double.parseDouble(item_price))
                 {
-//                  Toast.makeText(ItemView.this,"Cannot buy a product that has been pitched in by anyone", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ItemView.this, Buying.class));
                 }
                 else {
@@ -185,9 +137,7 @@ public class ItemView extends AppCompatActivity {
                                   if(t.getName().equals(item_clicked)&& t.getPrice()==Double.parseDouble(item_price) && t.getQuantity() == item_quantity){
                                       mDatabase.child("Users").child(searched_username).child("Lists").child("Public").child(n.getKey()).removeValue();
                                   }
-
                                }
-
                             }
                         }
 
@@ -203,17 +153,35 @@ public class ItemView extends AppCompatActivity {
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g);
 
                 }else{
-                    Gift g1 = new Gift(item_clicked, Double.parseDouble(item_price), searched_username,private_name, item_quantity,"gs://makeawish-3b12e.appspot.com/placeholder.png");
+                    mDatabase.child("Users").child(searched_username).child("Lists").child("Private").child(private_name).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            // Get Post object and use the values to update the UI
+                            if (dataSnapshot.exists()) {
+                                for(DataSnapshot n: dataSnapshot.getChildren()){
+                                    if(n.getKey().equals("expiration") || n.getKey().equals("name"))
+                                        continue;
+                                    Item t= n.getValue(Item.class);
+                                    if(t.getName().equals(item_clicked)&& t.getPrice()==Double.parseDouble(item_price) && t.getQuantity() == item_quantity){
+                                        mDatabase.child("Users").child(searched_username).child("Lists").child("Private").child(private_name).child(n.getKey()).removeValue();
+                                    }
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            Log.w(null, "loadPost:onCancelled", databaseError.toException());
+                            // ...
+                        }
+                    });
+
+                    Gift g1 = new Gift(item_clicked, Double.parseDouble(item_price), searched_username,private_name, item_quantity,sharedPreferences.getString("path","gs://makeawish-3b12e.appspot.com/images.jpg"));
                     mDatabase.child("Users").child(username[0]).child("itemsToBuy").push().setValue(g1);
                 }
-
-
-
             }
         });
     }
 }
-
-
-
-

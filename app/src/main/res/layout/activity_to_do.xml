@@ -35,10 +35,10 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="#c7000000"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/blue"
         app:itemIconTint="#FFFFFF"
         app:itemTextColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,9 +49,10 @@
     <ListView
         android:id="@+id/todo_requests_list"
         android:layout_width="match_parent"
-        android:layout_height="196dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="56dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -64,7 +65,7 @@
     <ListView
         android:id="@+id/todo_reminder_list"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
+        android:layout_height="170dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="91dp" />

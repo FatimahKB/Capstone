@@ -60,10 +60,8 @@ public class people_cherites extends AppCompatActivity {
                     case R.id.navigation_search:
                         startActivity(new Intent(people_cherites.this,Search.class));break;
                     case R.id.navigation_settings:
-                        startActivity(new Intent(people_cherites.this,Settings.class));break;
+                        startActivity(new Intent(people_cherites.this,Signout.class));break;
                     default:
-
-
 
                 }
                 return false;

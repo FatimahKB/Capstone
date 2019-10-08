@@ -98,12 +98,9 @@ final View view = inflater.inflate(R.layout.search_users_layout, viewGroup, fals
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selected_user=(search_list.getItemAtPosition(position)).toString();
-                Toast.makeText(getContext(),"toast 1 the searched user is :"+selected_user,Toast.LENGTH_LONG).show();
                 SharedPreferences.Editor e =sharedPreferences.edit();
                 e.putString("chosenUser",selected_user);
                 e.commit();
-                Toast.makeText(getContext(),"toast 2 the searched user is :"+selected_user,Toast.LENGTH_LONG).show();
-
                 startActivity(new Intent(getContext(),FriendsWishList.class));
             }
         });

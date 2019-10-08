@@ -41,7 +41,7 @@ public class user_wishlist extends AppCompatActivity {
                     case R.id.navigation_search:
                         startActivity(new Intent(user_wishlist.this,Search.class));break;
                     case R.id.navigation_settings:
-                        startActivity(new Intent(user_wishlist.this,Settings.class));break;
+                        startActivity(new Intent(user_wishlist.this,Signout.class));break;
                     default:
 
 

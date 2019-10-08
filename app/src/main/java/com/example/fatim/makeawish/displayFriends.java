@@ -20,24 +20,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class displayFriends extends AppCompatActivity {
-    public DatabaseReference mDatabase;
-    FirebaseUser user;
+
+    //Controllers
+    String friends1;
     String all_friends;
     String[] friends;
     ListView mlistView;
+
+    //Database
+    public DatabaseReference mDatabase;
+    FirebaseUser user;
     SharedPreferences sharedPreferences;
 
-    String friends1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_friends);
+
+        //setting the controllers
         mlistView=(ListView)findViewById(R.id.displayFriends_friends_listview);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user= FirebaseAuth.getInstance().getCurrentUser();
         String username []=user.getEmail().split("@");
 
-
+//Retrieving all friend's names
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,6 +59,7 @@ public class displayFriends extends AppCompatActivity {
                 // ...
             }});
 
+//going to the chosen friend's list
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

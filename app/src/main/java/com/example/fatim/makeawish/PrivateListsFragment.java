@@ -33,8 +33,8 @@ public class PrivateListsFragment extends Fragment{
     FirebaseUser user;
     ArrayList<String> all_private_list;
     TextView friendsNumberText;
-    ListView items_list;
-    ArrayList<String> all_items_list = new ArrayList<>();
+//    ListView items_list;
+//    ArrayList<String> all_items_list = new ArrayList<>();
     TextView t;
     String friends;
     int friendsNumber;
@@ -96,21 +96,24 @@ public class PrivateListsFragment extends Fragment{
                 e.putString("selected_private_list",s);
                 e.putString("listType","Private");
                 e.commit();
-                startActivity(new Intent ( getActivity(),ItemsOfPrivateList.class));
+                startActivity(new Intent ( getActivity(),user_privateList_items.class));
             }
         });
 
         mDatabase.child("Users").child(username[0]).child("friends").addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                friends=dataSnapshot.getValue(String.class);
-                for(int i=0;i<friends.length();i++){
-                    if(friends.charAt(i)== ','){
-                        friendsNumber++;
+                if (dataSnapshot.exists()) {
+                    friends = dataSnapshot.getValue(String.class);
+                    for (int i = 0; i < friends.length(); i++) {
+                        if (friends.charAt(i) == ',') {
+                            friendsNumber++;
+                        }
                     }
+                    friendsNumberText.setText(friendsNumber + 1 + " friends");
                 }
-                friendsNumberText.setText(friendsNumber+1+" friends");
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message

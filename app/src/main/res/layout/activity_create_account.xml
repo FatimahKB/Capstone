@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccount">
 
+
+
+    <ImageView
+
+        android:id="@+id/profilepic_imageView"
+
+        android:layout_width="78dp"
+
+        android:layout_height="70dp"
+
+        android:layout_alignParentTop="true"
+
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="88dp"
+
+        android:clickable="true"
+
+        android:onClick="pick"
+
+
+
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
     <EditText
         android:id="@+id/create_account_name_editText"
         android:layout_width="271dp"
