@@ -149,9 +149,9 @@ public class user_privateList_items extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             storageRef = storage.getReferenceFromUrl(all_itemsImg_list.get(position));
-            final View view = getLayoutInflater().inflate(R.layout.custom_layout,null);
-            final ImageView mImageView = view.findViewById(R.id.item_image);
-            TextView mTitle = view.findViewById(R.id.item_name);
+            final View view = getLayoutInflater().inflate(R.layout.customlayout,null);
+            final ImageView mImageView = view.findViewById(R.id.itemsPriavteList_ListView);
+            TextView mTitle = view.findViewById(R.id.PriavteList_name_TextView);
 
             //     mImageView.setImageResource(images[position]);
             mTitle.setText(all_items_list.get(position).toString());

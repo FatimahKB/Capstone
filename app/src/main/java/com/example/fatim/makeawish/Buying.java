@@ -18,7 +18,7 @@ public class Buying extends AppCompatActivity {
         btn_start_map_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Buying.this,MapsActivity.class));
+//                startActivity(new Intent(Buying.this,MapsActivity.class));
             }
         });
     }
